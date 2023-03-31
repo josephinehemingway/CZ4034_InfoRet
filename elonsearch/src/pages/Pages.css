@@ -12,7 +12,6 @@ header {
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: white;
-    /*transition: top .4s ease-in-out;*/
 }
 
 .home-header {
@@ -27,7 +26,6 @@ header {
 .home-header.sticky .heading{
     position: fixed;
     transform: translateY(-150%);
-    /*transition: transform .4s ease-in-out;*/
 }
 
 .heading {
@@ -36,8 +34,9 @@ header {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 2rem;
     position: relative;
-    transition: transform .4s ease-in-out;
+    transition: transform 0.7s ease-in-out;
 }
 
 .searchdiv {
@@ -48,5 +47,34 @@ header {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+}
+
+.results-container {
+    position: fixed;
+    top: 28vh;
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.results-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 70%
+}
+
+.sentiment-section {
+    width: 20%;
+    height: 100%;
+}
+
+.results-list {
+    width: 70%;
+    height: 100%;
 }
 

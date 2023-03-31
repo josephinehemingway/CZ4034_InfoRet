@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {StyledInputSearch} from "../components/Searchbar";
 import {SearchOutlined} from "@ant-design/icons";
-import { BorderedButton } from '../components/Button';
+import {BorderedButton} from '../components/Button';
 import {StyledLink, StyledText, StyledTitle} from "../components/StyledText";
 import './Pages.css'
+import SentimentSection from "../components/SentimentSection";
+import MatchDesc from "../components/MatchDesc";
 // import logo from "../assets/elon.png";
 
 interface ResponseRedditSubmissions {
@@ -90,7 +92,7 @@ const Home = () => {
                             value={query === '' ? undefined : query }
                             onChange={(e: { target: { value: any } }) => setQuery(e.target.value)}
                             allowClear
-                            width={'40%'}
+                            width={'50%'}
                         />
                         <BorderedButton left={'1rem'} width={'8%'} onClick={onSearch}> Search </BorderedButton>
                     </div>
@@ -109,12 +111,21 @@ const Home = () => {
                         </StyledLink>
                     </StyledText>
                 </div>
+                {
+                    results &&
+                    <div className={'results-container'}>
+                        <MatchDesc numResults={100} duration={0} query={'SpaceX'}/>
+                        <div className={'results-section'}>
+                            <div className={'sentiment-section'}>
+                                <SentimentSection/>
+                            </div>
+                            <div className={'results-list'}>
+                                Results
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
-            {
-                results && <div>
-                    Hello Hello
-                </div>
-            }
         </header>
     );
 };

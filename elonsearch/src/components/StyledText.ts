@@ -45,6 +45,33 @@ export const StyledText = styled.p`
       margin-top: ${(props: { top: string }) => props.top ? props.top : "0"};
       margin-left: ${(props: { left: string }) => props.left ? props.left : "0"};
       margin-right: ${(props: { right: string }) => props.right ? props.right : "0"};
+    }
+`
 
+export const StyledHeading = styled.h3`
+    && {
+      font-family: Poppins-SemiBold, serif;
+      color: ${(props: { color: string }) => (props.color ? props.color : '#fff')};
+      font-size: ${(props: { fontsize: string }) => (props.fontsize ? props.fontsize : '20px')};
+      text-align: ${(props: { align: string }) => (props.align ? props.align : 'center')};
+      margin-bottom: ${(props: { bottom: string }) => props.bottom ? props.bottom : "1rem"};
+      margin-top: ${(props: { top: string }) => props.top ? props.top : "0"};
+      margin-left: ${(props: { left: string }) => props.left ? props.left : "0"};
+      margin-right: ${(props: { right: string }) => props.right ? props.right : "0"};
+    }
+`
+
+export const StyledLabel = styled.p`
+    && {
+      font-family: Poppins, serif;
+      color: ${(props: { color: string }) => (props.color ? props.color : 'rgba(255,255,255,0.7)')};
+      //font-weight: 600;
+      font-size: ${(props: { fontsize: string }) => (props.fontsize ? props.fontsize : '16px')};
+      text-align: ${(props: { align: string }) => (props.align ? props.align : 'start')};
+      align-items: center;
+      margin-bottom: ${(props: { bottom: string }) => props.bottom ? props.bottom : "0"};
+      margin-top: ${(props: { top: string }) => props.top ? props.top : "0"};
+      margin-left: ${(props: { left: string }) => props.left ? props.left : "0"};
+      margin-right: ${(props: { right: string }) => props.right ? props.right : "0"};
     }
 `
