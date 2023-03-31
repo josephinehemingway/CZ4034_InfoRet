@@ -4,6 +4,8 @@ import spacex from "../assets/bg/spacex.jpeg";
 import starlink from "../assets/bg/starlink.webp";
 import {KeywordBackgroundMap, Sentiment} from "./interfaces";
 
+export const DATEFORMAT = "ddd, D MMMM YYYY [at] h:mmA"
+
 export const keywordBackgroundMap: KeywordBackgroundMap = {
     'tesla': tesla,
     'twitter': twitter,
@@ -27,7 +29,7 @@ export const DUMMY_REDDIT_RES = [
     {
         id: '12150g4',
         title: 'Liftoff.54321.',
-        text: '',
+        text: 'Twitter confirmed that roughly 50% of its workforce has been laid off. \\n\\nThis is what will cause advertisers to pull out, at least in the short term. What does any company look like after losing half their employees? Especially a vibrant tech company that needs to stay relevant \\n\\n[https://amp.cnn.com/cnn/2022/11/03/tech/twitter-layoffs/index.html](https://amp.cnn.com/cnn/2022/11/03/tech/twitter-layoffs/index.html)',
         subreddit: 'elonmusk',
         author: 'ZaroonKhan5',
         upvote_ratio: 0.91,
@@ -37,6 +39,7 @@ export const DUMMY_REDDIT_RES = [
         num_comments: 18,
         tags: ['SpaceX'],
         date: '25/3/23 0:46',
+        source: 'reddit_cmt'
     },
     {
         id: '12150g5',
@@ -49,13 +52,14 @@ export const DUMMY_REDDIT_RES = [
         url: 'reddit.com/r/elonmusk/comments/12150g4/liftoff54321/',
         link: 'https://i.redd.it/x3tffx02ljy91.jpg',
         num_comments: 18,
-        tags: ['SpaceX'],
+        tags: ['SpaceX', 'Twitter'],
         date: '25/3/23 0:46',
+        source: 'twitter'
     },
     {
         id: '12150g6',
         title: 'Liftoff.54321.',
-        text: '',
+        text: 'Twitter confirmed that roughly 50% of its workforce has been laid off. \\n\\nThis is what will cause advertisers to pull out, at least in the short term. What does any company look like after losing half their employees? Especially a vibrant tech company that needs to stay relevant \\n\\n[https://amp.cnn.com/cnn/2022/11/03/tech/twitter-layoffs/index.html](https://amp.cnn.com/cnn/2022/11/03/tech/twitter-layoffs/index.html)',
         subreddit: 'elonmusk',
         author: 'ZaroonKhan5',
         upvote_ratio: 0.91,
@@ -65,12 +69,13 @@ export const DUMMY_REDDIT_RES = [
         num_comments: 18,
         tags: ['SpaceX'],
         date: '25/3/23 0:46',
+        source: 'reddit_sub'
     },
 ]
 
 export const DUMMY_STARLINK= [
     {
-        id: '12150g4',
+        id: '12150g7',
         title: 'Starlink',
         text: '',
         subreddit: 'elonmusk',
@@ -82,6 +87,7 @@ export const DUMMY_STARLINK= [
         num_comments: 18,
         tags: ['SpaceX'],
         date: '25/3/23 0:46',
+        source: 'reddit_cmt'
     },
 
 ]

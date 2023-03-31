@@ -11,7 +11,7 @@ const MatchDesc: React.FC<Props> = ({numResults, duration, query}) => {
     return (
         <div className={'match-desc'}>
             <StyledLabel right={'0.5rem'}>
-                {numResults} results found for '{query}'
+                <b>{numResults}</b> result{numResults === 1 ? '' : 's'} found for <b>'{query}'</b>
             </StyledLabel>
             <StyledLabel>
                 ({duration} ms)

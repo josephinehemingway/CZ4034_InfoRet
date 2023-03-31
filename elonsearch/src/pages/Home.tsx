@@ -92,7 +92,8 @@ const Home = () => {
         <ResultsCard
             key={d.id}
             result={d}
-            sentiment={0}/>
+            sentiment={0}
+        />
     ));
 
     return (
@@ -112,7 +113,7 @@ const Home = () => {
                         />
                         <BorderedButton left={'1rem'} width={'8%'} onClick={onSearch}> Search </BorderedButton>
                     </div>
-                    <StyledText bottom={'2rem'}>Search by category:
+                    <StyledText bottom={'2rem'}>Search keywords:
                         <StyledLink onClick={() => onClickKeyword('SpaceX')} left={'1rem'} right={'0.5rem'}>
                             SpaceX
                         </StyledLink>|
@@ -130,7 +131,7 @@ const Home = () => {
                 {
                     results.length !== 0 &&
                     <div className={'results-container'}>
-                        <MatchDesc numResults={100} duration={0} query={query}/>
+                        <MatchDesc numResults={results.length} duration={0} query={queryTerm}/>
                         <div className={'results-section'}>
                             <div className={'sentiment-section'}>
                                 <SentimentSection/>

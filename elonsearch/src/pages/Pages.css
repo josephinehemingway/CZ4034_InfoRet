@@ -1,17 +1,17 @@
 header {
-    /*background-image: url('../assets/bg.jpeg');*/
     height: 100vh;
     width: 100vw;
-    background-size: 100%;
     box-shadow: inset 0 0 0 1000px rgba(0,0,0,.7);
     text-align: center;
-    background-color: #9da7bd;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: calc(10px + 2vmin);
     color: white;
+    background-size: cover;
+    background-color: #9da7bd;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 
 .home-header {
@@ -84,7 +84,7 @@ header {
 }
 
 .sentiment-section {
-    width: 22%;
+    width: 24%;
     height: 100%;
 }
 
