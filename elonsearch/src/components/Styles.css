@@ -32,7 +32,6 @@
     box-sizing: border-box;
     background: linear-gradient(to right, #2A3C51, #1A2634);
     box-shadow: 0 2px 20px rgb(29, 41, 56);
-    color: #fff;
     border-radius: 10px;
     margin-bottom: 1rem;
     overflow: scroll;
@@ -52,7 +51,6 @@
     box-sizing: border-box;
     background: linear-gradient(to right, #2A3C51, #1A2634);
     box-shadow: 0 2px 20px rgb(29, 41, 56);
-    color: #fff;
     border-radius: 10px;
     margin-bottom: 1rem;
     overflow: scroll;
@@ -77,8 +75,26 @@
     justify-content: flex-start;
     width: 100%;
     margin-left: 1rem;
+    color: #fff;
 }
 
 .sentiment {
     width: 100px;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.metadata {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 70%;
 }

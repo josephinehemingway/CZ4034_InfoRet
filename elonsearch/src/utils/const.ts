@@ -2,7 +2,7 @@ import tesla from "../assets/bg/tesla.jpeg";
 import twitter from "../assets/bg/twitter.png";
 import spacex from "../assets/bg/spacex.jpeg";
 import starlink from "../assets/bg/starlink.webp";
-import {KeywordBackgroundMap} from "./interfaces";
+import {KeywordBackgroundMap, Sentiment} from "./interfaces";
 
 export const keywordBackgroundMap: KeywordBackgroundMap = {
     'tesla': tesla,
@@ -10,6 +10,18 @@ export const keywordBackgroundMap: KeywordBackgroundMap = {
     'spacex': spacex,
     'starlink': starlink,
 };
+
+export const SENTIMENT: Sentiment = {
+    '1': 'POSITIVE',
+    '0': 'NEUTRAL',
+    '-1': 'NEGATIVE',
+}
+
+export const SENTIMENTS_STYLES_MAP: Sentiment = {
+    'POSITIVE': 'rgba(122,250,58,0.8)',
+    'NEUTRAL': 'rgb(168,173,183)',
+    'NEGATIVE': 'rgb(199,70,70)',
+}
 
 export const DUMMY_REDDIT_RES = [
     {

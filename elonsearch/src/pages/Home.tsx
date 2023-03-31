@@ -14,7 +14,6 @@ import {useLocation, useNavigate} from "react-router-dom";
 import bg from '../assets/bg/bg.jpeg';
 
 const Home = () => {
-    // browser url
     const queryTerm = useLocation().pathname.split("/")[2];
 
     const [backgroundImage, setBackgroundImage] = useState(bg);
@@ -24,8 +23,6 @@ const Home = () => {
     let nav = useNavigate()
 
     useEffect(() => {
-        // setResults(DUMMY_REDDIT_RES)
-
         if (queryTerm && queryTerm !== '') {
             if (queryTerm.toLowerCase() in keywordBackgroundMap) {
                 setBackgroundImage(keywordBackgroundMap[queryTerm.toLowerCase()])
@@ -94,18 +91,8 @@ const Home = () => {
     const resultsArray = results.map((d) => (
         <ResultsCard
             key={d.id}
-            id={d.id}
-            title={d.title}
-            text={d.text}
-            subreddit={d.subreddit}
-            author={d.author}
-            score={d.score}
-            upvote_ratio={d.upvote_ratio}
-            date={d.date} url={d.url}
-            link={d.link}
-            tags={d.tags}
-            num_comments={d.num_comments}
-            sentiment={1}/>
+            result={d}
+            sentiment={0}/>
     ));
 
     return (

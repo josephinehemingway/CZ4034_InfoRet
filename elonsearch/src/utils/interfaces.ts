@@ -17,4 +17,8 @@ interface KeywordBackgroundMap {
     [key: string]: string;
 }
 
-export type { ResponseRedditSubmissions, KeywordBackgroundMap }
+interface Sentiment {
+    [key: string]: string;
+}
+
+export type { ResponseRedditSubmissions, KeywordBackgroundMap, Sentiment }
