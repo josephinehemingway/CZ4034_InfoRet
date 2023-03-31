@@ -25,6 +25,25 @@ export const SENTIMENTS_STYLES_MAP: Sentiment = {
     'NEGATIVE': 'rgb(199,70,70)',
 }
 
+export const WORD_VALUE_MAP = [
+    {
+        text: 'told',
+        value: 64,
+    },
+    {
+        text: 'mistake',
+        value: 11,
+    },
+    {
+        text: 'thought',
+        value: 16,
+    },
+    {
+        text: 'bad',
+        value: 17,
+    },
+]
+
 export const DUMMY_REDDIT_RES = [
     {
         id: '12150g4',
@@ -89,5 +108,4 @@ export const DUMMY_STARLINK= [
         date: '25/3/23 0:46',
         source: 'reddit_cmt'
     },
-
 ]

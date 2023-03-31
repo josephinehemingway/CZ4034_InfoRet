@@ -31,7 +31,7 @@ const ResultsCard: React.FC<Props> = ({ result, sentiment }) => {
     let sentimentCol = SENTIMENTS_STYLES_MAP[sentimentString];
 
     return (
-        <div className={"results-card"} draggable>
+        <div className={"results-card"}>
             <div className={"source-desc"}>
                 <img
                     width={"50px"}
