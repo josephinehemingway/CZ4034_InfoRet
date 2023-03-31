@@ -2,6 +2,7 @@ import React from "react";
 import Reddit from './../assets/reddit-logo.png'
 import {StyledHeading, StyledText, StyledLabel, StyledLink } from "./StyledText";
 import './Styles.css';
+import moment from 'moment';
 
 type Props = {
     id: string;
@@ -42,10 +43,10 @@ const ResultsCard: React.FC<Props> = ({
             <div className={'source-desc'}>
                 <img width={'50px'} src={Reddit} alt={'reddit'}/>
                 <div className={'text-desc'}>
-                    <StyledHeading fontsize={'16px'} bottom={'0.25rem'} align={'start'}>
+                    <StyledHeading fontsize={'15px'} bottom={'0.25rem'} align={'start'}>
                         {author}
                     </StyledHeading>
-                    <StyledHeading fontsize={'16px'} bottom={'0'} align={'start'}>
+                    <StyledHeading fontsize={'15px'} bottom={'0'} align={'start'}>
                         REDDIT | r/{subreddit}
                     </StyledHeading>
                 </div>
@@ -53,7 +54,9 @@ const ResultsCard: React.FC<Props> = ({
                     <StyledLabel>POSITIVE</StyledLabel>
                 </div>
             </div>
-            <StyledLabel fontsize={'14px'} bottom={'0.5rem'}>{date}</StyledLabel>
+            <StyledLabel fontsize={'14px'} bottom={'0.5rem'}>
+                {moment(date, 'DD/M/YY H:mm').format('ddd, D MMMM YYYY [at] h:mmA')}
+            </StyledLabel>
             <StyledHeading align={'start'}>{title}</StyledHeading>
             <StyledText>{text}</StyledText>
 

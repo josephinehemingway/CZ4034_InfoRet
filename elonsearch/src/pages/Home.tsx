@@ -7,97 +7,109 @@ import './Pages.css'
 import SentimentSection from "../components/SentimentSection";
 import MatchDesc from "../components/MatchDesc";
 import ResultsCard from "../components/ResultsCard";
+import {ResponseRedditSubmissions} from "../utils/interfaces";
+import {DUMMY_REDDIT_RES, DUMMY_STARLINK, keywordBackgroundMap} from "../utils/const";
 // import logo from "../assets/elon.png";
-
-interface ResponseRedditSubmissions {
-    id: string;
-    title: string;
-    text: string;
-    subreddit: string;
-    author: string;
-    score: number;
-    upvote_ratio: number;
-    date: string;
-    url: string;
-    link: string;
-    tags: string[];
-    num_comments: number;
-}
+import {useLocation, useNavigate} from "react-router-dom";
+import bg from '../assets/bg/bg.jpeg';
 
 const Home = () => {
-    const [query, setQuery] = useState<string>("");
+    // browser url
+    const queryTerm = useLocation().pathname.split("/")[2];
+
+    const [backgroundImage, setBackgroundImage] = useState(bg);
+    const [query, setQuery] = useState<string>(queryTerm ? queryTerm : "");
     const [results, setResults] = useState<ResponseRedditSubmissions[]>([])
 
-    const onSearch = () => {
-        console.log(query);
-        setResults([{
-            id: '12150g4',
-            title: 'Liftoff.54321.',
-            text: '',
-            subreddit: 'elonmusk',
-            author: 'ZaroonKhan5',
-            upvote_ratio: 0.91,
-            score: 290,
-            url: 'reddit.com/r/elonmusk/comments/12150g4/liftoff54321/',
-            link: 'https://v.redd.it/e72u906e8spa1',
-            num_comments: 18,
-            tags: ['SpaceX'],
-            date: '25/3/23 0:46',
-        },
-            {
-                id: '12150g4',
-                title: 'Liftoff.54321.',
-                text: '',
-                subreddit: 'elonmusk',
-                author: 'ZaroonKhan5',
-                upvote_ratio: 0.91,
-                score: 290,
-                url: 'reddit.com/r/elonmusk/comments/12150g4/liftoff54321/',
-                link: 'https://i.redd.it/x3tffx02ljy91.jpg',
-                num_comments: 18,
-                tags: ['SpaceX'],
-                date: '25/3/23 0:46',
-            },
-            {
-                id: '12150g4',
-                title: 'Liftoff.54321.',
-                text: '',
-                subreddit: 'elonmusk',
-                author: 'ZaroonKhan5',
-                upvote_ratio: 0.91,
-                score: 290,
-                url: 'reddit.com/r/elonmusk/comments/12150g4/liftoff54321/',
-                link: 'https://i.redd.it/4ltf63wfh2y91.png',
-                num_comments: 18,
-                tags: ['SpaceX'],
-                date: '25/3/23 0:46',
-            },
-        ])
-    };
+    let nav = useNavigate()
 
     useEffect(() => {
-        console.log(results);
-    }, [results])
+        // setResults(DUMMY_REDDIT_RES)
+
+        if (queryTerm && queryTerm !== '') {
+            if (queryTerm.toLowerCase() in keywordBackgroundMap) {
+                setBackgroundImage(keywordBackgroundMap[queryTerm.toLowerCase()])
+            } else {
+                setBackgroundImage(bg)
+            }
+        } else {
+            setBackgroundImage(bg)
+        }
+
+    }, [queryTerm])
+
+    const onSearch = () => {
+        console.log(query)
+        if (query !== ""){
+            nav(`/search/${query}`)
+            setResults(DUMMY_REDDIT_RES)
+        } else {
+            nav(`/`)
+            setResults([])
+        }
+    };
+
+    const onClickKeyword = (kw: string) => {
+        setQuery(kw)
+        nav(`/search/${kw}`)
+
+        if (kw.toLowerCase() === 'starlink') {
+            setResults(DUMMY_STARLINK)
+        } else {
+            setResults(DUMMY_REDDIT_RES)
+        }
+    }
+
+    useEffect(() => {
+        // const delay = 80; // Adjust this value to control the delay between each item's animation
+        const listItems = document.querySelectorAll('.results-card');
+        const resultContainer = document.querySelectorAll('.results-container')
+
+        // let timeout = 0;
+        listItems.forEach((item) => {
+            setTimeout(() => {
+                item.classList.add('show');
+            }, 0);
+            // timeout += delay;
+        });
+
+        resultContainer.forEach((item) => {
+            setTimeout(() => {
+                item.classList.add('show');
+            }, 0);
+            // timeout += delay;
+        });
+
+        return () => {
+            listItems.forEach((item) => {
+                item.classList.remove('show');
+            });
+
+            resultContainer.forEach((item) => {
+                item.classList.remove('show');
+            });
+        };
+    }, [results]);
 
     const resultsArray = results.map((d) => (
         <ResultsCard
             key={d.id}
             id={d.id}
-                     title={d.title}
-                     text={d.text}
-                     subreddit={d.subreddit}
-                     author={d.author}
-                     score={d.score}
-                     upvote_ratio={d.upvote_ratio}
-                     date={d.date} url={d.url}
-                     link={d.link}
-                     tags={d.tags}
-                     num_comments={d.num_comments}
-                     sentiment={1}/>
+            title={d.title}
+            text={d.text}
+            subreddit={d.subreddit}
+            author={d.author}
+            score={d.score}
+            upvote_ratio={d.upvote_ratio}
+            date={d.date} url={d.url}
+            link={d.link}
+            tags={d.tags}
+            num_comments={d.num_comments}
+            sentiment={1}/>
     ));
 
     return (
-        <header>
+        <header style={{ backgroundImage: `url(${backgroundImage})`}}>
             <div className={`home-header${results.length !== 0 ? " sticky" : ""}`}>
                 <div className={`heading`}>
                     {/*<img src={logo} className="App-logo" alt="logo" />*/}
@@ -114,16 +126,16 @@ const Home = () => {
                         <BorderedButton left={'1rem'} width={'8%'} onClick={onSearch}> Search </BorderedButton>
                     </div>
                     <StyledText bottom={'2rem'}>Search by category:
-                        <StyledLink href={'/search/SpaceX'} left={'1rem'} right={'0.5rem'}>
+                        <StyledLink onClick={() => onClickKeyword('SpaceX')} left={'1rem'} right={'0.5rem'}>
                             SpaceX
                         </StyledLink>|
-                        <StyledLink href={'/search/Tesla'} left={'0.5rem'} right={'0.5rem'}>
+                        <StyledLink onClick={() => onClickKeyword('Tesla')} left={'0.5rem'} right={'0.5rem'}>
                             Tesla
                         </StyledLink>|
-                        <StyledLink href={'/search/Twitter'} left={'0.5rem'} right={'0.5rem'}>
+                        <StyledLink onClick={() => onClickKeyword('Twitter')} left={'0.5rem'} right={'0.5rem'}>
                             Twitter
                         </StyledLink>|
-                        <StyledLink href={'/search/Starlink'} left={'0.5rem'} right={'0.5rem'}>
+                        <StyledLink onClick={() => onClickKeyword('Starlink')} left={'0.5rem'} right={'0.5rem'}>
                             Starlink
                         </StyledLink>
                     </StyledText>
@@ -131,7 +143,7 @@ const Home = () => {
                 {
                     results.length !== 0 &&
                     <div className={'results-container'}>
-                        <MatchDesc numResults={100} duration={0} query={'SpaceX'}/>
+                        <MatchDesc numResults={100} duration={0} query={query}/>
                         <div className={'results-section'}>
                             <div className={'sentiment-section'}>
                                 <SentimentSection/>

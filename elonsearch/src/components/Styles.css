@@ -37,6 +37,28 @@
     margin-bottom: 1rem;
     overflow: scroll;
     position: relative;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.7s ease-in-out;
+}
+
+.results-card.show {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 1.5rem;
+    min-height: 160px;
+    box-sizing: border-box;
+    background: linear-gradient(to right, #2A3C51, #1A2634);
+    box-shadow: 0 2px 20px rgb(29, 41, 56);
+    color: #fff;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    overflow: scroll;
+    position: relative;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .source-desc {

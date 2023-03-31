@@ -27,7 +27,7 @@ export const StyledInputSearch = styled(Input)`
       -webkit-filter: opacity(100%);
     }
 
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(238, 238, 238, 0.4);
     border-radius: 60px;
     width: ${(props: { width: string }) =>
             props.width ? props.width : "50%"};
@@ -39,6 +39,7 @@ export const StyledInputSearch = styled(Input)`
     margin-bottom: 1rem;
     font-family: Lato, sans-serif;
     font-size: 16px;
+    backdrop-filter: blur(10px);
 
     &:hover {
       border: 2px solid rgba(121, 118, 232, 0.8);
