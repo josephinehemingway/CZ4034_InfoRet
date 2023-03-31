@@ -23,7 +23,7 @@ export const StyledLink = styled.a`
     margin-bottom: ${(props: { bottom: string }) => (props.bottom ? props.bottom : '0')};
     margin-left: ${(props: { left: string }) => props.left ? props.left : "0"};
     margin-right: ${(props: { right: string }) => props.right ? props.right : "0"};
-    font-family: Poppins, serif;
+    font-family: Inter-Regular, serif;
     color: ${(props: { color: string }) => (props.color ? props.color : '#ffffff80')};
     font-size: ${(props: { fontsize: string }) => (props.fontsize ? props.fontsize : '16px')};;
     text-align: center;
@@ -37,7 +37,7 @@ export const StyledLink = styled.a`
 
 export const StyledText = styled.p`
     && {
-      font-family: Poppins, serif;
+      font-family: Inter-Regular, serif;
       color: ${(props: { color: string }) => (props.color ? props.color : '#fff')};
       font-size: ${(props: { fontsize: string }) => (props.fontsize ? props.fontsize : '16px')};
       text-align: ${(props: { align: string }) => (props.align ? props.align : 'center')};
@@ -50,7 +50,8 @@ export const StyledText = styled.p`
 
 export const StyledHeading = styled.h3`
     && {
-      font-family: Poppins-SemiBold, serif;
+      width: 100%;
+      font-family: Inter-Bold, serif;
       color: ${(props: { color: string }) => (props.color ? props.color : '#fff')};
       font-size: ${(props: { fontsize: string }) => (props.fontsize ? props.fontsize : '20px')};
       text-align: ${(props: { align: string }) => (props.align ? props.align : 'center')};
@@ -63,7 +64,7 @@ export const StyledHeading = styled.h3`
 
 export const StyledLabel = styled.p`
     && {
-      font-family: Poppins, serif;
+      font-family: Inter-Regular, serif;
       color: ${(props: { color: string }) => (props.color ? props.color : 'rgba(255,255,255,0.7)')};
       //font-weight: 600;
       font-size: ${(props: { fontsize: string }) => (props.fontsize ? props.fontsize : '16px')};

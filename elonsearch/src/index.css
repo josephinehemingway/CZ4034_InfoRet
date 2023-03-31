@@ -18,37 +18,11 @@ code {
 }
 
 @font-face {
-  font-family: 'Lato';
-  src: local('Lato'), url(./assets/fonts/Lato/Lato-Regular.ttf) format('truetype');
+  font-family: 'Inter-Regular';
+  src: local('Inter'), url(./assets/fonts/Inter/static/Inter-Regular.ttf) format('truetype');
 }
 
 @font-face {
-  font-family: 'Lato Bold';
-  font-weight: 900;
-  src: local('Lato'), url(./assets/fonts/Lato/Lato-Bold.ttf) format('truetype');
-}
-
-@font-face {
-  font-family: 'Poppins-SemiBold';
-  src: local('Poppins'), url(./assets/fonts/Poppins/Poppins-SemiBold.ttf) format('truetype');
-}
-
-@font-face {
-  font-family: 'Poppins-Medium';
-  src: local('Poppins'), url(./assets/fonts/Poppins/Poppins-Medium.ttf) format('truetype');
-}
-
-@font-face {
-  font-family: 'Poppins';
-  src: local('Poppins'), url(./assets/fonts/Poppins/Poppins-Regular.ttf) format('truetype');
-}
-
-@font-face {
-  font-family: 'Poppins-Bold';
-  src: local('Poppins'), url(./assets/fonts/Poppins/Poppins-Bold.ttf) format('truetype');
-}
-
-@font-face {
-  font-family: 'Poppins-Light';
-  src: local('Poppins'), url(./assets/fonts/Poppins/Poppins-Light.ttf) format('truetype');
+  font-family: 'Inter-Bold';
+  src: local('Inter'), url(./assets/fonts/Inter/static/Inter-Bold.ttf) format('truetype');
 }

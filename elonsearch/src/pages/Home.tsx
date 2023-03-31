@@ -6,6 +6,7 @@ import {StyledLink, StyledText, StyledTitle} from "../components/StyledText";
 import './Pages.css'
 import SentimentSection from "../components/SentimentSection";
 import MatchDesc from "../components/MatchDesc";
+import ResultsCard from "../components/ResultsCard";
 // import logo from "../assets/elon.png";
 
 interface ResponseRedditSubmissions {
@@ -25,11 +26,10 @@ interface ResponseRedditSubmissions {
 
 const Home = () => {
     const [query, setQuery] = useState<string>("");
-    const [results, setResults] = useState<ResponseRedditSubmissions[]>()
+    const [results, setResults] = useState<ResponseRedditSubmissions[]>([])
 
     const onSearch = () => {
         console.log(query);
-        // setResults(!results);
         setResults([{
             id: '12150g4',
             title: 'Liftoff.54321.',
@@ -53,7 +53,7 @@ const Home = () => {
                 upvote_ratio: 0.91,
                 score: 290,
                 url: 'reddit.com/r/elonmusk/comments/12150g4/liftoff54321/',
-                link: 'https://v.redd.it/e72u906e8spa1',
+                link: 'https://i.redd.it/x3tffx02ljy91.jpg',
                 num_comments: 18,
                 tags: ['SpaceX'],
                 date: '25/3/23 0:46',
@@ -67,7 +67,7 @@ const Home = () => {
                 upvote_ratio: 0.91,
                 score: 290,
                 url: 'reddit.com/r/elonmusk/comments/12150g4/liftoff54321/',
-                link: 'https://v.redd.it/e72u906e8spa1',
+                link: 'https://i.redd.it/4ltf63wfh2y91.png',
                 num_comments: 18,
                 tags: ['SpaceX'],
                 date: '25/3/23 0:46',
@@ -79,9 +79,26 @@ const Home = () => {
         console.log(results);
     }, [results])
 
+    const resultsArray = results.map((d) => (
+        <ResultsCard
+            key={d.id}
+            id={d.id}
+                     title={d.title}
+                     text={d.text}
+                     subreddit={d.subreddit}
+                     author={d.author}
+                     score={d.score}
+                     upvote_ratio={d.upvote_ratio}
+                     date={d.date} url={d.url}
+                     link={d.link}
+                     tags={d.tags}
+                     num_comments={d.num_comments}
+                     sentiment={1}/>
+    ));
+
     return (
         <header>
-            <div className={`home-header${results ? " sticky" : ""}`}>
+            <div className={`home-header${results.length !== 0 ? " sticky" : ""}`}>
                 <div className={`heading`}>
                     {/*<img src={logo} className="App-logo" alt="logo" />*/}
                     <StyledTitle bottom={'0'}> ElonSearch </StyledTitle>
@@ -112,7 +129,7 @@ const Home = () => {
                     </StyledText>
                 </div>
                 {
-                    results &&
+                    results.length !== 0 &&
                     <div className={'results-container'}>
                         <MatchDesc numResults={100} duration={0} query={'SpaceX'}/>
                         <div className={'results-section'}>
@@ -120,7 +137,7 @@ const Home = () => {
                                 <SentimentSection/>
                             </div>
                             <div className={'results-list'}>
-                                Results
+                                {resultsArray}
                             </div>
                         </div>
                     </div>

@@ -5,7 +5,7 @@ import {StyledHeading} from "./StyledText";
 const SentimentSection = () => {
     return (
         <div className={'sentiment-card'}>
-            <StyledHeading>Sentiment Scores</StyledHeading>
+            <StyledHeading align={'start'}>Sentiment Scores</StyledHeading>
         </div>
     );
 };
