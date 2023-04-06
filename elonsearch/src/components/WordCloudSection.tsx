@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyledHeading } from './StyledText';
 import WordCloud from "./WordCloud";
+import {WordValueMap} from "../utils/interfaces";
 
 type Props = {
-    words: string[]
+    words: WordValueMap[]
 }
 
 const WordCloudSection: React.FC<Props> = ({words}) => {

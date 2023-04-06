@@ -27,4 +27,9 @@ interface Sentiment {
     [key: string]: string;
 }
 
-export type { ResponseApi, KeywordBackgroundMap, Sentiment }
+interface WordValueMap {
+    text: string;
+    value: number;
+}
+
+export type { ResponseApi, KeywordBackgroundMap, Sentiment, WordValueMap }

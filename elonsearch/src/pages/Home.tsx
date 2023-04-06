@@ -7,7 +7,7 @@ import "./Pages.css";
 import SentimentSection from "../components/SentimentSection";
 import MatchDesc from "../components/MatchDesc";
 import ResultsCard from "../components/ResultsCard";
-import { ResponseApi } from "../utils/interfaces";
+import {ResponseApi, WordValueMap} from "../utils/interfaces";
 import {
     FILTER_SENTIMENT_OPTIONS,
     FILTER_SOURCE_OPTIONS, FILTER_SUBJECTIVITY_OPTIONS,
@@ -29,12 +29,13 @@ const Home = () => {
     const [backgroundImage, setBackgroundImage] = useState(bg);
     const [query, setQuery] = useState<string>(queryTerm ? queryTerm : "");
     const [results, setResults] = useState<ResponseApi[]>([]);
-    const [words, setWords] = useState<string[]>([]);
+    const [wordCount, setWordCount] = useState<WordValueMap[]>([]);
     const [duration, setDuration] = useState<number>(0)
     const [numResults, setNumResults] = useState<number>(0)
     const [checkedList, setCheckedList] = useState<CheckboxValueType[]>(FILTER_SOURCE_OPTIONS);
     const [indeterminate, setIndeterminate] = useState(true);
     const [checkAll, setCheckAll] = useState(true);
+    const [allText, setAllText] = useState<string[]>([])
 
     const onChange = (list: CheckboxValueType[]) => {
         setCheckedList(list);
@@ -78,6 +79,13 @@ const Home = () => {
 
                     console.log(data.response.docs)
                     setResults(data.response.docs);
+
+                    let arr: string[] = []
+                    data.response.docs.map((doc: any) => {
+                        arr.push(doc.text[0])
+                    })
+                    console.log(arr)
+                    setAllText(arr)
                 })
             );
 
@@ -89,6 +97,27 @@ const Home = () => {
             setResults([]);
         }
     };
+
+    useEffect(() => {
+        const wordCount: {[key: string]: number } = {};
+
+        allText.forEach((sentence) => {
+            const words = sentence.toLowerCase().split(' ');
+            words.forEach((word) => {
+                if (wordCount[word]) {
+                    wordCount[word]++;
+                } else {
+                    wordCount[word] = 1;
+                }
+            });
+        });
+
+        const wordValueMap = Object.keys(wordCount).map((word) => {
+            return { text: word, value: wordCount[word] };
+        })
+
+        setWordCount(wordValueMap)
+    }, [allText])
 
     const onClickKeyword = (kw: string) => {
         setQuery(kw);
@@ -271,12 +300,6 @@ const Home = () => {
                                     allowClear
                                 >
                                     {sortOptions}
-                                    {/*<StyledLink*/}
-                                    {/*    onClick={handleFilter}*/}
-                                    {/*    left={"0.5rem"}*/}
-                                    {/*>*/}
-                                    {/*    Sort by*/}
-                                    {/*</StyledLink>*/}
                                 </StyledSelect>
                             </StyledLabel>
                         </div>
@@ -284,7 +307,7 @@ const Home = () => {
                         <div className={"results-section"}>
                             <div className={"sentiment-section"}>
                                 <SentimentSection />
-                                <WordCloudSection words={words}/>
+                                <WordCloudSection words={wordCount}/>
                             </div>
                             <div className={"results-list"}>{resultsArray}</div>
                         </div>

@@ -2,7 +2,7 @@ import tesla from "../assets/bg/tesla.jpeg";
 import twitter from "../assets/bg/twitter.png";
 import spacex from "../assets/bg/spacex.jpeg";
 import starlink from "../assets/bg/starlink.webp";
-import {KeywordBackgroundMap, Sentiment} from "./interfaces";
+import {KeywordBackgroundMap, Sentiment, WordValueMap} from "./interfaces";
 
 export const DATEFORMAT = "ddd, D MMMM YYYY [at] h:mmA"
 
@@ -51,49 +51,27 @@ export const FILTER_SUBJECTIVITY_OPTIONS = [
 export const SORTING_OPTIONS = [
     'Newest',
     'Oldest',
-    'Most liked',
+    'Most Upvoted',
+    'Most Liked',
     'Most Retweets',
     'Most Comments',
 ]
 
-export const SORT_OPTIONS = [
-    {
-        value: 'Newest',
-        label: 'Newest',
-    },
-    {
-        value: 'Oldest',
-        label: 'Oldest',
-    },
-    {
-        value: 'Most liked',
-        label: 'Most liked',
-    },
-    {
-        value: 'Most Retweets',
-        label: 'Most Retweets',
-    },
-    {
-        value: 'Most Comments',
-        label: 'Most Comments',
-    },
-]
-
-export const WORD_VALUE_MAP = [
-    {
-        text: 'told',
-        value: 64,
-    },
-    {
-        text: 'mistake',
-        value: 11,
-    },
-    {
-        text: 'thought',
-        value: 16,
-    },
-    {
-        text: 'bad',
-        value: 17,
-    },
-]
+// export const WORD_VALUE_MAP: WordValueMap[] = [
+//     {
+//         text: 'told',
+//         value: 64,
+//     },
+//     {
+//         text: 'mistake',
+//         value: 11,
+//     },
+//     {
+//         text: 'thought',
+//         value: 16,
+//     },
+//     {
+//         text: 'bad',
+//         value: 17,
+//     },
+// ]

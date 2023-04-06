@@ -2,18 +2,18 @@ import React from 'react';
 import ReactWordcloud from 'react-wordcloud';
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/animations/scale.css';
-import {WORD_VALUE_MAP} from "../utils/const";
+import {WordValueMap} from "../utils/interfaces";
 
 type Props = {
-    words: string[]
+    words: WordValueMap[]
 }
 
 const WordCloud: React.FC<Props> = ({words}) => {
 
     const callbacks = {
         // getWordColor: (word: { value: number; }) => word.value > 50 ? "blue" : "red",
-        onWordClick: console.log,
-        onWordMouseOver: console.log,
+        // onWordClick: console.log,
+        // onWordMouseOver: console.log,
         getWordTooltip: (word: { text: any; value: number; }) => `${word.text} (${word.value})`,
     }
     const options = {
@@ -33,7 +33,7 @@ const WordCloud: React.FC<Props> = ({words}) => {
     return (
         <ReactWordcloud
             // @ts-ignore
-            callbacks={callbacks} options={options} size={size} words={WORD_VALUE_MAP}
+            callbacks={callbacks} options={options} size={size} words={words}
             minSize={[200, 200]}
         />
     );
