@@ -100,8 +100,9 @@ header {
 
 .results-list {
     width: 70%;
-    height: 72vh;
+    height: 70vh;
     left: 20vw;
     overflow: scroll;
     position: absolute;
+    padding-bottom: 2rem;
 }

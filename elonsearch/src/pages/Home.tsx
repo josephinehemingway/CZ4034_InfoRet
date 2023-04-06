@@ -7,7 +7,7 @@ import "./Pages.css";
 import SentimentSection from "../components/SentimentSection";
 import MatchDesc from "../components/MatchDesc";
 import ResultsCard from "../components/ResultsCard";
-import { ResponseRedditSubmissions } from "../utils/interfaces";
+import { ResponseApi } from "../utils/interfaces";
 import {
     keywordBackgroundMap,
 } from "../utils/const";
@@ -20,7 +20,7 @@ const Home = () => {
     const queryTerm = useLocation().pathname.split("/")[2];
     const [backgroundImage, setBackgroundImage] = useState(bg);
     const [query, setQuery] = useState<string>(queryTerm ? queryTerm : "");
-    const [results, setResults] = useState<ResponseRedditSubmissions[]>([]);
+    const [results, setResults] = useState<ResponseApi[]>([]);
     const [words, setWords] = useState<string[]>([]);
     const [duration, setDuration] = useState<number>(0)
 
@@ -46,16 +46,16 @@ const Home = () => {
 
             var start = performance.now();
 
-            fetch(`http://localhost:8983/solr/elonsearch_cmts/select?indent=true&q.op=OR&q=text:${kw}&useParams=`
+            fetch(`http://localhost:8983/solr/elonsearch/select?indent=true&q.op=OR&q=text:${kw}&useParams=`
             ).then((res) =>
                 res.json().then((data) => {
+                    console.log(data.response.docs)
                     setResults(data.response.docs);
                 })
             );
 
             var end = performance.now();
             setDuration(parseFloat((end - start).toFixed(5)));
-            console.log(`Search for ${kw} took ${end-start} milliseconds`)
 
         } else {
             nav(`/`);
@@ -101,7 +101,7 @@ const Home = () => {
     }, [results]);
 
     const resultsArray = results.map((d) => (
-        <ResultsCard key={d.id} result={d} sentiment={0} source={'reddit_cmt'}/>
+        <ResultsCard key={d.id} result={d} sentiment={0}/>
     ));
 
     return (
