@@ -10,8 +10,6 @@ type Props = {
 
 const WordCloud: React.FC<Props> = ({words}) => {
 
-    console.log(words)
-
     const callbacks = {
         // getWordColor: (word: { value: number; }) => word.value > 50 ? "blue" : "red",
         onWordClick: console.log,

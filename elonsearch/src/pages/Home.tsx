@@ -9,8 +9,6 @@ import MatchDesc from "../components/MatchDesc";
 import ResultsCard from "../components/ResultsCard";
 import { ResponseRedditSubmissions } from "../utils/interfaces";
 import {
-    DUMMY_REDDIT_RES,
-    DUMMY_STARLINK,
     keywordBackgroundMap,
 } from "../utils/const";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -20,11 +18,11 @@ import WordCloudSection from "../components/WordCloudSection";
 
 const Home = () => {
     const queryTerm = useLocation().pathname.split("/")[2];
-
     const [backgroundImage, setBackgroundImage] = useState(bg);
     const [query, setQuery] = useState<string>(queryTerm ? queryTerm : "");
     const [results, setResults] = useState<ResponseRedditSubmissions[]>([]);
     const [words, setWords] = useState<string[]>([]);
+    const [duration, setDuration] = useState<number>(0)
 
     let nav = useNavigate();
 
@@ -42,19 +40,23 @@ const Home = () => {
         }
     }, [queryTerm]);
 
-    // useEffect(() => {
-    //     let text = []
-    //     results.forEach((result) => {
-    //
-    //     })
-    //
-    // }, [results])
+    const onSearch = (kw: string) => {
+        if (kw !== "") {
+            nav(`/search/${kw}`);
 
-    const onSearch = () => {
-        console.log(query);
-        if (query !== "") {
-            nav(`/search/${query}`);
-            setResults(DUMMY_REDDIT_RES);
+            var start = performance.now();
+
+            fetch(`http://localhost:8983/solr/elonsearch_cmts/select?indent=true&q.op=OR&q=text:${kw}&useParams=`
+            ).then((res) =>
+                res.json().then((data) => {
+                    setResults(data.response.docs);
+                })
+            );
+
+            var end = performance.now();
+            setDuration(parseFloat((end - start).toFixed(5)));
+            console.log(`Search for ${kw} took ${end-start} milliseconds`)
+
         } else {
             nav(`/`);
             setResults([]);
@@ -64,12 +66,7 @@ const Home = () => {
     const onClickKeyword = (kw: string) => {
         setQuery(kw);
         nav(`/search/${kw}`);
-
-        if (kw.toLowerCase() === "starlink") {
-            setResults(DUMMY_STARLINK);
-        } else {
-            setResults(DUMMY_REDDIT_RES);
-        }
+        onSearch(kw)
     };
 
     useEffect(() => {
@@ -104,7 +101,7 @@ const Home = () => {
     }, [results]);
 
     const resultsArray = results.map((d) => (
-        <ResultsCard key={d.id} result={d} sentiment={0} />
+        <ResultsCard key={d.id} result={d} sentiment={0} source={'reddit_cmt'}/>
     ));
 
     return (
@@ -131,10 +128,9 @@ const Home = () => {
                         <BorderedButton
                             left={"1rem"}
                             width={"8%"}
-                            onClick={onSearch}
+                            onClick={() => onSearch(query)}
                         >
-                            {" "}
-                            Search{" "}
+                            Search
                         </BorderedButton>
                     </div>
                     <StyledText bottom={"2rem"}>
@@ -172,13 +168,26 @@ const Home = () => {
                         </StyledLink>
                     </StyledText>
                 </div>
-                {results.length !== 0 && (
-                    <div className={"results-container"}>
+                {results.length === 0 && query !== '' && (
+                    <div className={"no-results-container"}>
                         <MatchDesc
                             numResults={results.length}
-                            duration={0}
+                            duration={duration}
                             query={queryTerm}
                         />
+                    </div>
+                )
+                }
+                {results.length !== 0 && (
+                    <div className={"results-container"}>
+                        <div style={{width: '100%'}}>
+                            <MatchDesc
+                                numResults={results.length}
+                                duration={duration}
+                                query={queryTerm}
+                            />
+                        </div>
+
                         <div className={"results-section"}>
                             <div className={"sentiment-section"}>
                                 <SentimentSection />

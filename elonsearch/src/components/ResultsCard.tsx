@@ -23,9 +23,10 @@ import {
 type Props = {
     result: ResponseRedditSubmissions;
     sentiment: number;
+    source: string;
 };
 
-const ResultsCard: React.FC<Props> = ({ result, sentiment }) => {
+const ResultsCard: React.FC<Props> = ({ result, sentiment, source }) => {
     let regex = new RegExp(/[^\s]+(.*?).(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF)$/);
     let sentimentString = SENTIMENT[sentiment.toString()];
     let sentimentCol = SENTIMENTS_STYLES_MAP[sentimentString];
@@ -35,7 +36,7 @@ const ResultsCard: React.FC<Props> = ({ result, sentiment }) => {
             <div className={"source-desc"}>
                 <img
                     width={"50px"}
-                    src={result.source === "twitter" ? Twitter : Reddit}
+                    src={source === "twitter" ? Twitter : Reddit}
                     alt={"source"}
                 />
 
@@ -45,7 +46,7 @@ const ResultsCard: React.FC<Props> = ({ result, sentiment }) => {
                         bottom={"0.25rem"}
                         align={"start"}
                     >
-                        {result.source === "twitter" ? "@" : ""}
+                        {source === "twitter" ? "@" : ""}
                         {result.author}
                     </StyledHeading>
                     <StyledHeading
@@ -53,7 +54,7 @@ const ResultsCard: React.FC<Props> = ({ result, sentiment }) => {
                         bottom={"0"}
                         align={"start"}
                     >
-                        {result.source.startsWith("reddit")
+                        {source.startsWith("reddit")
                             ? `REDDIT | r/${result.subreddit}`
                             : "TWITTER"}
                     </StyledHeading>
@@ -68,16 +69,19 @@ const ResultsCard: React.FC<Props> = ({ result, sentiment }) => {
 
             <div className={'footer'}>
                 <StyledLabel fontsize={"14px"} bottom={"0.25rem"} style={{whiteSpace: 'nowrap'}}>
-                    {moment(result.date, "DD/M/YY H:mm").format(DATEFORMAT)}
+                    {moment(result.date, "YYYY-MM-DDTHH:mm:ssZ").format(DATEFORMAT)}
                 </StyledLabel>
 
-                <div className={"tags"}>
-                    {result.tags.map((tag) => (
-                        <Tag color={"blue"} style={{ marginLeft: "0.25rem", marginRight: '0', fontSize: '14px'}}>
-                            {tag}
-                        </Tag>
-                    ))}
-                </div>
+                {
+                    source === 'reddit_sub' &&
+                    <div className={"tags"}>
+                        {result.tags.map((tag) => (
+                            <Tag color={"blue"} style={{ marginLeft: "0.25rem", marginRight: '0', fontSize: '14px'}}>
+                                {tag}
+                            </Tag>
+                        ))}
+                    </div>
+                }
             </div>
 
             <StyledHeading align={"start"} bottom={'0.75rem'}>{result.title}</StyledHeading>
@@ -92,22 +96,25 @@ const ResultsCard: React.FC<Props> = ({ result, sentiment }) => {
             )}
 
             <div className={"footer"}>
-                {result.source.startsWith("reddit") ? (
+                {source.startsWith("reddit") ? (
                     <div className={"metadata"}>
                         <div className={'metadata-details'}>
                             <Icon path={mdiArrowUpBold} size={0.85}
                                   style={{marginRight: '0.25rem'}}
                             />
                             <StyledLabel right={"0.5rem"} >
-                                {result.score} { result.source === 'reddit_sub' && `(${(result.upvote_ratio * 100).toString()}%)`}
+                                {result.score} { source === 'reddit_sub' && `(${(result.upvote_ratio * 100).toString()}%)`}
                             </StyledLabel>
                         </div>
-                        <div className={'metadata-details'}>
-                            <Icon path={mdiCommentOutline} size={0.85} style={{marginRight: '0.25rem', }}/>
-                            <StyledLabel right={"0.5rem"}>
-                                {result.num_comments}
-                            </StyledLabel>
-                        </div>
+
+                        {source === 'reddit_sub' && (
+                            <div className={'metadata-details'}>
+                                <Icon path={mdiCommentOutline} size={0.85} style={{marginRight: '0.25rem', }}/>
+                                <StyledLabel right={"0.5rem"}>
+                                    {result.num_comments}
+                                </StyledLabel>
+                            </div>
+                        )}
                     </div>
                 ) :
                     <div className={"metadata"}>
@@ -130,7 +137,7 @@ const ResultsCard: React.FC<Props> = ({ result, sentiment }) => {
                 }
 
                 <StyledLink
-                    href={`https://${result.url}`}
+                    href={ source === 'reddit_sub' ? `https://${result.url}` : result.url}
                     target="_blank"
                     rel="noopener noreferrer"
                 >
