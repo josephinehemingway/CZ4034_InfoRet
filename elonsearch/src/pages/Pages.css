@@ -106,3 +106,36 @@ header {
     position: absolute;
     padding-bottom: 2rem;
 }
+
+.header-section {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.popover {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    align-items: start;
+    width: 250px;
+    font-family: Inter-Regular, sans-serif;
+    overflow: auto;
+}
+
+.ant-divider-horizontal {
+    margin: 10px 0;
+}
+
+.ant-checkbox-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.ant-checkbox-wrapper+.ant-checkbox-wrapper {
+    margin-inline-start: 0;
+    font-family: Inter-Regular, sans-serif;
+}
+

@@ -25,6 +25,60 @@ export const SENTIMENTS_STYLES_MAP: Sentiment = {
     'NEGATIVE': 'rgb(199,70,70)',
 }
 
+export const SOURCE_MAP = {
+    'Reddit Submissions': 'reddit_sub',
+    'Reddit Comments': 'reddit_cmt',
+    'Twitter': 'twitter',
+}
+
+export const FILTER_SOURCE_OPTIONS = [
+    'Reddit Submissions',
+    'Reddit Comments',
+    'Twitter'
+]
+
+export const FILTER_SENTIMENT_OPTIONS = [
+    'Negative',
+    'Neutral',
+    'Positive'
+]
+
+export const FILTER_SUBJECTIVITY_OPTIONS = [
+    'Subjective',
+    'Objective'
+]
+
+export const SORTING_OPTIONS = [
+    'Newest',
+    'Oldest',
+    'Most liked',
+    'Most Retweets',
+    'Most Comments',
+]
+
+export const SORT_OPTIONS = [
+    {
+        value: 'Newest',
+        label: 'Newest',
+    },
+    {
+        value: 'Oldest',
+        label: 'Oldest',
+    },
+    {
+        value: 'Most liked',
+        label: 'Most liked',
+    },
+    {
+        value: 'Most Retweets',
+        label: 'Most Retweets',
+    },
+    {
+        value: 'Most Comments',
+        label: 'Most Comments',
+    },
+]
+
 export const WORD_VALUE_MAP = [
     {
         text: 'told',

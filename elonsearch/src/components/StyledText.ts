@@ -1,5 +1,6 @@
 // @ts-ignore
 import styled from 'styled-components'
+import { Select } from 'antd'
 
 export const StyledTitle = styled.div`
     && {
@@ -75,4 +76,40 @@ export const StyledLabel = styled.p`
       margin-left: ${(props: { left: string }) => props.left ? props.left : "0"};
       margin-right: ${(props: { right: string }) => props.right ? props.right : "0"};
     }
+`
+
+export const StyledSelect = styled(Select)`
+  && {
+    width: ${(props: { width: string; }) => (props.width ? props.width : '100%')};
+    margin-bottom: ${(props: { marginbottom: string; }) => (props.marginbottom ? props.marginbottom : '0.25rem')};
+    margin-right: ${(props: { right: string; }) => props.right ? props.right : '0'} 
+    
+    font-family: 'Inter-Regular', serif;
+    font-size: 16px;
+    background: none;
+    color: #fff;
+    
+    & .ant-select-selection-placeholder {
+      color: #ffffff80;
+      font-size: 16px;
+    }
+    
+    & .ant-select-selector {
+      background: none;
+      padding-right: 0;
+    }
+    
+    & .ant-select-arrow {
+      color: #fff;
+    }
+    
+    & .ant-select-selection-item {
+      color: #ffffff80;
+      font-size: 16px;
+    }
+
+    & .ant-select-clear {{
+      border-radius: 5px
+    }
+  }
 `

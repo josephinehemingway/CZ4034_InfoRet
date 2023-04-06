@@ -1,20 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { StyledInputSearch } from "../components/Searchbar";
 import { SearchOutlined } from "@ant-design/icons";
-import { BorderedButton } from "../components/Button";
-import { StyledLink, StyledText, StyledTitle } from "../components/StyledText";
+import {BorderedButton} from "../components/Button";
+import {StyledLabel, StyledLink, StyledSelect, StyledText, StyledTitle} from "../components/StyledText";
 import "./Pages.css";
 import SentimentSection from "../components/SentimentSection";
 import MatchDesc from "../components/MatchDesc";
 import ResultsCard from "../components/ResultsCard";
 import { ResponseApi } from "../utils/interfaces";
 import {
-    keywordBackgroundMap,
+    FILTER_SENTIMENT_OPTIONS,
+    FILTER_SOURCE_OPTIONS, FILTER_SUBJECTIVITY_OPTIONS,
+    keywordBackgroundMap, SORTING_OPTIONS,
 } from "../utils/const";
 import { useLocation, useNavigate } from "react-router-dom";
 import bg from "../assets/bg/bg.jpeg";
 import WordCloudSection from "../components/WordCloudSection";
+import {Checkbox, Divider, Popover} from "antd";
+import type { CheckboxChangeEvent } from 'antd/es/checkbox';
+import type { CheckboxValueType } from 'antd/es/checkbox/Group';
 // import logo from "../assets/elon.png";
+
+const CheckboxGroup = Checkbox.Group;
+const { Option } = StyledSelect;
 
 const Home = () => {
     const queryTerm = useLocation().pathname.split("/")[2];
@@ -23,6 +31,22 @@ const Home = () => {
     const [results, setResults] = useState<ResponseApi[]>([]);
     const [words, setWords] = useState<string[]>([]);
     const [duration, setDuration] = useState<number>(0)
+    const [numResults, setNumResults] = useState<number>(0)
+    const [checkedList, setCheckedList] = useState<CheckboxValueType[]>(FILTER_SOURCE_OPTIONS);
+    const [indeterminate, setIndeterminate] = useState(true);
+    const [checkAll, setCheckAll] = useState(true);
+
+    const onChange = (list: CheckboxValueType[]) => {
+        setCheckedList(list);
+        setIndeterminate(!!list.length && list.length < FILTER_SOURCE_OPTIONS.length);
+        setCheckAll(list.length === FILTER_SOURCE_OPTIONS.length);
+    };
+
+    const onCheckAllChange = (e: CheckboxChangeEvent) => {
+        setCheckedList(e.target.checked ? FILTER_SOURCE_OPTIONS : []);
+        setIndeterminate(false);
+        setCheckAll(e.target.checked);
+    };
 
     let nav = useNavigate();
 
@@ -49,6 +73,9 @@ const Home = () => {
             fetch(`http://localhost:8983/solr/elonsearch/select?indent=true&q.op=OR&q=text:${kw}&useParams=`
             ).then((res) =>
                 res.json().then((data) => {
+                    console.log(data.response.numFound)
+                    setNumResults(data.response.numFound)
+
                     console.log(data.response.docs)
                     setResults(data.response.docs);
                 })
@@ -103,6 +130,14 @@ const Home = () => {
     const resultsArray = results.map((d) => (
         <ResultsCard key={d.id} result={d} sentiment={0}/>
     ));
+
+    const sortOptions = useMemo(() => {
+        return SORTING_OPTIONS.map((b) => (
+            <Option key={b} value={b}>
+                {b}
+            </Option>
+        ));
+    }, []);
 
     return (
         <header style={{ backgroundImage: `url(${backgroundImage})` }}>
@@ -180,12 +215,70 @@ const Home = () => {
                 }
                 {results.length !== 0 && (
                     <div className={"results-container"}>
-                        <div style={{width: '100%'}}>
+                        <div className={'header-section'}>
                             <MatchDesc
-                                numResults={results.length}
+                                numResults={numResults}
                                 duration={duration}
                                 query={queryTerm}
+                                numRows={10}
                             />
+                            <StyledLabel bottom={"1rem"}>
+                                Refine search:
+                                <Popover content={
+                                    <div className="popover">
+                                        <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}>
+                                            Select all
+                                        </Checkbox>
+
+                                        <Divider orientationMargin={'5px'}/>
+
+                                        <StyledLabel color={'grey'} fontsize={'15px'} marginbottom={'2rem'}>
+                                            Filter by <b>source</b>
+                                        </StyledLabel>
+                                        <CheckboxGroup options={FILTER_SOURCE_OPTIONS} value={checkedList} onChange={onChange} />
+
+                                        <Divider orientationMargin={'5px'}/>
+
+                                        <StyledLabel color={'grey'} fontsize={'15px'} marginbottom={'2rem'}>
+                                            Filter by <b>sentiment</b>
+                                        </StyledLabel>
+                                        <CheckboxGroup options={FILTER_SENTIMENT_OPTIONS} value={checkedList} onChange={onChange} />
+
+                                        <Divider orientationMargin={'5px'}/>
+
+                                        <StyledLabel color={'grey'} fontsize={'15px'} marginbottom={'2rem'}>
+                                            Filter by <b>subjectivity</b>
+                                        </StyledLabel>
+                                        <CheckboxGroup options={FILTER_SUBJECTIVITY_OPTIONS} value={checkedList} onChange={onChange} />
+
+                                    </div>
+                                }
+                                         trigger="click"
+                                         placement={'bottomRight'}>
+                                    <StyledLink
+                                        left={"0.5rem"}
+                                        right={"0.5rem"}
+                                    >
+                                        Filter
+                                    </StyledLink>
+                                </Popover>
+
+                                |
+                                <StyledSelect
+                                    bordered={false}
+                                    style={{ width: 150 }}
+                                    placeholder="Sort by"
+                                    allowClear
+                                >
+                                    {sortOptions}
+                                    {/*<StyledLink*/}
+                                    {/*    onClick={handleFilter}*/}
+                                    {/*    left={"0.5rem"}*/}
+                                    {/*>*/}
+                                    {/*    Sort by*/}
+                                    {/*</StyledLink>*/}
+                                </StyledSelect>
+                            </StyledLabel>
                         </div>
 
                         <div className={"results-section"}>
