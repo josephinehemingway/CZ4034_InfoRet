@@ -1,5 +1,6 @@
 import pandas as pd
 import pysolr  # can only support up to python 3.7
+from datetime import datetime
 
 # Read from csv file
 csv_data = pd.read_csv("combined.csv")
