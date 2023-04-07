@@ -16,6 +16,7 @@ const WordCloud: React.FC<Props> = ({words}) => {
         // onWordMouseOver: console.log,
         getWordTooltip: (word: { text: any; value: number; }) => `${word.text} (${word.value})`,
     }
+
     const options = {
         rotations: 2,
         rotationAngles: [-90, 0],
