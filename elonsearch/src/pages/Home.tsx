@@ -9,6 +9,7 @@ import MatchDesc from "../components/MatchDesc";
 import ResultsCard from "../components/ResultsCard";
 import {ResponseApi, WordValueMap} from "../utils/interfaces";
 import {
+    FILTER_MAPPING,
     FILTER_SENTIMENT_OPTIONS,
     FILTER_SOURCE_OPTIONS, FILTER_SUBJECTIVITY_OPTIONS,
     keywordBackgroundMap, SORTING_OPTIONS,
@@ -39,24 +40,14 @@ const Home = () => {
     const [wordCount, setWordCount] = useState<WordValueMap[]>([]);
     const [duration, setDuration] = useState<number>(0)
     const [numResults, setNumResults] = useState<number>(0)
+    const [sortBy, setSortBy] = useState<string>('')
+    const ALL_SORT_OPTIONS: CheckboxValueType[] = FILTER_SOURCE_OPTIONS.concat(FILTER_SENTIMENT_OPTIONS, FILTER_SUBJECTIVITY_OPTIONS)
 
-    const [checkedList, setCheckedList] = useState<CheckboxValueType[]>(FILTER_SOURCE_OPTIONS);
+    const [checkedList, setCheckedList] = useState<CheckboxValueType[]>(ALL_SORT_OPTIONS);
     const [indeterminate, setIndeterminate] = useState(true);
     const [checkAll, setCheckAll] = useState(true);
 
     const [allText, setAllText] = useState<string[]>([])
-
-    const onChange = (list: CheckboxValueType[]) => {
-        setCheckedList(list);
-        setIndeterminate(!!list.length && list.length < FILTER_SOURCE_OPTIONS.length);
-        setCheckAll(list.length === FILTER_SOURCE_OPTIONS.length);
-    };
-
-    const onCheckAllChange = (e: CheckboxChangeEvent) => {
-        setCheckedList(e.target.checked ? FILTER_SOURCE_OPTIONS : []);
-        setIndeterminate(false);
-        setCheckAll(e.target.checked);
-    };
 
     let nav = useNavigate();
 
@@ -74,7 +65,7 @@ const Home = () => {
         }
     }, [queryTerm]);
 
-    const onSearch = (kw: string, sortBy: string='', start=0, fq= [] ) => {
+    const onSearch = (kw: string, sortBy: string='', start=0, fq: CheckboxValueType[] = [] ) => {
         if (kw !== "") {
             nav(`/search/${kw}`);
             setKw(kw)
@@ -86,7 +77,39 @@ const Home = () => {
             }
 
             if (fq.length > 0) {
-                params = {...params,  fq: fq.join('&fq=')}
+                const filters: string[] = []
+
+                fq.map(filterTerm => (
+                    //@ts-ignore
+                    filters.push(FILTER_MAPPING[filterTerm] as string)
+                ))
+                type KeyValues = {
+                    key: string;
+                    values: string[];
+                };
+
+                const combinedList: KeyValues[] = filters.reduce((accumulator: KeyValues[], currentItem: string) => {
+                    const [key, value] = currentItem.split(':');
+                    const existingItem = accumulator.find(item => item.key === key);
+
+                    if (existingItem) {
+                        existingItem.values.push(value);
+                    } else {
+                        accumulator.push({ key, values: [value] });
+                    }
+
+                    return accumulator;
+                }, []);
+
+                const formattedList: string[] = combinedList.map(item => {
+                    const valueString = item.values.length > 1 ? `(${item.values.join(' OR ')})` : item.values[0];
+
+                    return `${item.key}: ${valueString}`;
+                });
+
+                console.log(formattedList)
+
+                params = {...params,  fq: formattedList.join(' AND ')}
             }
 
             if (sortBy === 'num_comments desc') {
@@ -114,11 +137,14 @@ const Home = () => {
                 .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
                 .join('&');
 
-            // console.log(queryString)
+            console.log(queryString)
 
             var startTime = performance.now();
 
-            fetch(`http://localhost:8983/solr/elonsearch/select?indent=true&${queryString}&useParams=`
+            const url = `http://localhost:8983/solr/elonsearch/select?indent=true&${queryString}&useParams=`
+            console.log(url)
+
+            fetch(url
             ).then((res) =>
                 res.json().then((data) => {
                     setNumResults(data.response.numFound)
@@ -203,6 +229,21 @@ const Home = () => {
         <ResultsCard key={d.id} result={d} sentiment={0}/>
     ));
 
+    const onCheckboxClick = (list: CheckboxValueType[]) => {
+        setCheckedList(list);
+        setIndeterminate(!!list.length && list.length < ALL_SORT_OPTIONS.length);
+        setCheckAll(list.length === ALL_SORT_OPTIONS.length);
+        onSearch(query, '', 0, list)
+    };
+
+    const onCheckAllChange = (e: CheckboxChangeEvent) => {
+        setCheckedList(e.target.checked ? ALL_SORT_OPTIONS : []);
+        setIndeterminate(false);
+        setCheckAll(e.target.checked);
+
+        onSearch(query, '', 0)
+    };
+
     const sortOptions = useMemo(() => {
         return SORTING_OPTIONS.map((b) => (
             <Option key={b.value} value={b.value}>
@@ -212,8 +253,8 @@ const Home = () => {
     }, []);
 
     const handleSort = (e: string) => {
-        // setSortBy(e);
-        onSearch(query, e)
+        setSortBy(e);
+        onSearch(query, e, 0)
     }
 
     return (
@@ -297,37 +338,47 @@ const Home = () => {
                                 numResults={numResults}
                                 duration={duration}
                                 query={kw}
-                                numRows={10}
+                                numRows={results.length}
                             />
                             <StyledLabel bottom={"1rem"}>
                                 Refine search:
                                 <Popover content={
                                     <div className="popover">
+
                                         <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}>
                                             Select all
                                         </Checkbox>
 
                                         <Divider orientationMargin={'5px'}/>
 
-                                        <StyledLabel color={'grey'} fontsize={'15px'} marginbottom={'2rem'}>
-                                            Filter by <b>source</b>
-                                        </StyledLabel>
-                                        <CheckboxGroup options={FILTER_SOURCE_OPTIONS} value={checkedList} onChange={onChange} />
+                                        <CheckboxGroup onChange={onCheckboxClick} value={checkedList}>
+                                            <StyledLabel color={'grey'} fontsize={'15px'} marginbottom={'2rem'}>
+                                                Filter by <b>source</b>
+                                            </StyledLabel>
 
-                                        <Divider orientationMargin={'5px'}/>
+                                            {FILTER_SOURCE_OPTIONS.map((source) =>
+                                                <Checkbox key={source} value={source}>{source}</Checkbox>
+                                            )}
 
-                                        <StyledLabel color={'grey'} fontsize={'15px'} marginbottom={'2rem'}>
-                                            Filter by <b>sentiment</b>
-                                        </StyledLabel>
-                                        <CheckboxGroup options={FILTER_SENTIMENT_OPTIONS} value={checkedList} onChange={onChange} />
+                                            <Divider orientationMargin={'5px'}/>
 
-                                        <Divider orientationMargin={'5px'}/>
+                                            <StyledLabel color={'grey'} fontsize={'15px'} marginbottom={'2rem'}>
+                                                Filter by <b>sentiment</b>
+                                            </StyledLabel>
 
-                                        <StyledLabel color={'grey'} fontsize={'15px'} marginbottom={'2rem'}>
-                                            Filter by <b>subjectivity</b>
-                                        </StyledLabel>
-                                        <CheckboxGroup options={FILTER_SUBJECTIVITY_OPTIONS} value={checkedList} onChange={onChange} />
+                                            {FILTER_SENTIMENT_OPTIONS.map((source) =>
+                                                <Checkbox key={source} value={source}>{source}</Checkbox>
+                                            )}
 
+                                            <Divider orientationMargin={'5px'}/>
+                                            <StyledLabel color={'grey'} fontsize={'15px'} marginbottom={'2rem'}>
+                                                Filter by <b>subjectivity</b>
+                                            </StyledLabel>
+
+                                            {FILTER_SUBJECTIVITY_OPTIONS.map((source) =>
+                                                <Checkbox key={source} value={source}>{source}</Checkbox>
+                                            )}
+                                        </CheckboxGroup>
                                     </div>
                                 }
                                          trigger="click"

@@ -3,6 +3,7 @@ import twitter from "../assets/bg/twitter.png";
 import spacex from "../assets/bg/spacex.jpeg";
 import starlink from "../assets/bg/starlink.webp";
 import {KeywordBackgroundMap, Sentiment} from "./interfaces";
+import {CheckboxValueType} from "antd/es/checkbox/Group";
 
 export const DATEFORMAT = "ddd, D MMMM YYYY [at] h:mmA"
 export const INPUT_DATE_FORMAT = "YYYY-MM-DDTHH:mm:ssZ"
@@ -26,10 +27,15 @@ export const SENTIMENTS_STYLES_MAP: Sentiment = {
     'NEGATIVE': 'rgb(199,70,70)',
 }
 
-export const SOURCE_MAP = {
-    'Reddit Submissions': 'reddit_sub',
-    'Reddit Comments': 'reddit_cmt',
-    'Twitter': 'twitter',
+export const FILTER_MAPPING: {[key: string]: CheckboxValueType} = {
+    'Reddit Submissions': 'source:reddit_sub',
+    'Reddit Comments': 'source:reddit_cmt',
+    'Twitter': 'source:twitter',
+    'Negative': 'sentiment:-1',
+    'Neutral': 'sentiment:0',
+    'Positive': 'sentiment:1',
+    'Subjective': 'subjectivity:1',
+    'Objective': 'subjectivity:0'
 }
 
 export const FILTER_SOURCE_OPTIONS = [
