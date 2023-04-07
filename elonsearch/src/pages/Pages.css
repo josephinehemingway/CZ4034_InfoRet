@@ -139,3 +139,48 @@ header {
     font-family: Inter-Regular, sans-serif;
 }
 
+.pagination {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 327.55px;
+}
+
+.ant-pagination .ant-pagination-item a {
+    color: rgba(255, 255, 255, 0.7)
+}
+
+.ant-pagination .ant-pagination-item-active {
+    background-color: #2A3C51;
+    border-color: rgba(85, 118, 161, 0.68)
+}
+
+.ant-pagination .ant-pagination-next button {
+    color: rgba(255, 255, 255, 0.7)
+}
+
+.ant-pagination .ant-pagination-prev button {
+    color: rgba(255, 255, 255, 0.7)
+}
+
+.ant-pagination .ant-pagination-item a:hover {
+    color: rgb(115, 199, 199)
+}
+
+.ant-pagination .ant-pagination-jump-next .ant-pagination-item-container .ant-pagination-item-ellipsis {
+    color: rgba(255, 255, 255, 0.7)
+}
+
+.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, 0.7);
+}
+
+.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.ant-select .ant-select-arrow {
+    color: rgba(255, 255, 255, 0.7);
+}

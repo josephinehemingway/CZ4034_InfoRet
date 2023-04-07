@@ -109,7 +109,7 @@ export const StyledSelect = styled(Select)`
     }
 
     & .ant-select-clear {{
-      border-radius: 5px
+      border-radius: 10px
     }
   }
 `

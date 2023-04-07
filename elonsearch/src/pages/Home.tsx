@@ -9,6 +9,7 @@ import MatchDesc from "../components/MatchDesc";
 import ResultsCard from "../components/ResultsCard";
 import {ResponseApi, WordValueMap} from "../utils/interfaces";
 import {
+    FILTER_MAPPING,
     FILTER_SENTIMENT_OPTIONS,
     FILTER_SOURCE_OPTIONS, FILTER_SUBJECTIVITY_OPTIONS,
     keywordBackgroundMap, SORTING_OPTIONS,
@@ -19,35 +20,46 @@ import WordCloudSection from "../components/WordCloudSection";
 import {Checkbox, Divider, Popover} from "antd";
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import type { CheckboxValueType } from 'antd/es/checkbox/Group';
+import { Pagination } from 'antd';
 // import logo from "../assets/elon.png";
 
 const CheckboxGroup = Checkbox.Group;
 const { Option } = StyledSelect;
 
+// Highlighting
+
 const Home = () => {
-    const queryTerm = useLocation().pathname.split("/")[2];
+    // dynamic background
     const [backgroundImage, setBackgroundImage] = useState(bg);
+
+    const queryTerm = useLocation().pathname.split("/")[2];
     const [query, setQuery] = useState<string>(queryTerm ? queryTerm : "");
+    const [kw, setKw] = useState<string>("")
     const [results, setResults] = useState<ResponseApi[]>([]);
-    const [wordCount, setWordCount] = useState<WordValueMap[]>([]);
-    const [duration, setDuration] = useState<number>(0)
     const [numResults, setNumResults] = useState<number>(0)
-    const [checkedList, setCheckedList] = useState<CheckboxValueType[]>(FILTER_SOURCE_OPTIONS);
+
+    // pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    const [startIndex, setStartIndex] = useState<number>(0)
+
+    // duration of fetch
+    const [duration, setDuration] = useState<number>(0)
+
+    // sorting
+    const [sortBy, setSortBy] = useState<string>('')
+    const ALL_SORT_OPTIONS: CheckboxValueType[] = FILTER_SOURCE_OPTIONS.concat(FILTER_SENTIMENT_OPTIONS, FILTER_SUBJECTIVITY_OPTIONS)
+
+    // filter checkboxes
+    const [checkedList, setCheckedList] = useState<CheckboxValueType[]>(ALL_SORT_OPTIONS);
     const [indeterminate, setIndeterminate] = useState(true);
     const [checkAll, setCheckAll] = useState(true);
+
+    // spell check
+    const [suggestion, setSuggestion] = useState<string>('')
+
+    // for word cloud
+    const [wordCount, setWordCount] = useState<WordValueMap[]>([]);
     const [allText, setAllText] = useState<string[]>([])
-
-    const onChange = (list: CheckboxValueType[]) => {
-        setCheckedList(list);
-        setIndeterminate(!!list.length && list.length < FILTER_SOURCE_OPTIONS.length);
-        setCheckAll(list.length === FILTER_SOURCE_OPTIONS.length);
-    };
-
-    const onCheckAllChange = (e: CheckboxChangeEvent) => {
-        setCheckedList(e.target.checked ? FILTER_SOURCE_OPTIONS : []);
-        setIndeterminate(false);
-        setCheckAll(e.target.checked);
-    };
 
     let nav = useNavigate();
 
@@ -65,38 +77,125 @@ const Home = () => {
         }
     }, [queryTerm]);
 
-    const onSearch = (kw: string) => {
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+    };
+
+    const onSearch = (kw: string, sortBy: string='', start=0, fq: CheckboxValueType[] = [] ) => {
+        setSuggestion('')
+        setKw('')
+
         if (kw !== "") {
             nav(`/search/${kw}`);
+            setKw(kw)
 
-            var start = performance.now();
+            let params: {[key: string]: any} = {
+                sort: sortBy,
+                rows: 10,
+                start: start,
+            }
 
-            fetch(`http://localhost:8983/solr/elonsearch/select?indent=true&q.op=OR&q=text:${kw}&useParams=`
+            if (fq.length > 0) {
+                const filters: string[] = []
+
+                fq.map(filterTerm => (
+                    //@ts-ignore
+                    filters.push(FILTER_MAPPING[filterTerm] as string)
+                ))
+                type KeyValues = {
+                    key: string;
+                    values: string[];
+                };
+
+                const combinedList: KeyValues[] = filters.reduce((accumulator: KeyValues[], currentItem: string) => {
+                    const [key, value] = currentItem.split(':');
+                    const existingItem = accumulator.find(item => item.key === key);
+
+                    if (existingItem) {
+                        existingItem.values.push(value);
+                    } else {
+                        accumulator.push({ key, values: [value] });
+                    }
+
+                    return accumulator;
+                }, []);
+
+                const formattedList: string[] = combinedList.map(item => {
+                    const valueString = item.values.length > 1 ? `(${item.values.join(' OR ')})` : item.values[0];
+
+                    return `${item.key}: ${valueString}`;
+                });
+
+                console.log(formattedList)
+
+                params = {...params,  fq: formattedList.join(' AND ')}
+            }
+
+            if (sortBy === 'num_comments desc') {
+                params = {
+                    ...params,
+                    q: `text:${kw}, source: reddit_sub`,
+                    'q.op': 'AND',
+                };
+            } else if (sortBy === 'net_upvotes desc') {
+                params = {
+                    ...params,
+                    q: `text:${kw}, source: (reddit_sub OR reddit_cmt)`,
+                    'q.op': 'AND',
+                };
+            }
+            else {
+                params = {
+                    ...params,
+                    q: `text:${kw}`,
+                    'q.op': 'OR',
+                };
+            }
+
+            const queryString = Object.entries(params)
+                .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+                .join('&');
+
+
+            var startTime = performance.now();
+
+            const url = `http://localhost:8983/solr/elonsearch/select?indent=true&${queryString}&spellcheck=true&useParams=`
+
+            fetch(url
             ).then((res) =>
                 res.json().then((data) => {
-                    console.log(data.response.numFound)
                     setNumResults(data.response.numFound)
-
-                    console.log(data.response.docs)
                     setResults(data.response.docs);
+
+                    console.log(data.spellcheck)
+
+                    if (!data.spellcheck.correctlySpelled && data.spellcheck.suggestions.length > 0) {
+                        setSuggestion(data.spellcheck.suggestions[1].suggestion[0].word)
+                    }
 
                     let arr: string[] = []
                     data.response.docs.map((doc: any) => {
-                        arr.push(doc.text[0])
+                        arr.push(doc.cleaned_text[0])
                     })
-                    console.log(arr)
                     setAllText(arr)
                 })
             );
 
-            var end = performance.now();
-            setDuration(parseFloat((end - start).toFixed(5)));
+            var endTime = performance.now();
+            setDuration(parseFloat((endTime - startTime).toFixed(5)));
 
         } else {
             nav(`/`);
             setResults([]);
         }
     };
+
+    useEffect(() => {
+        const start = (currentPage - 1) * 10;
+        setStartIndex(start)
+        onSearch(kw, '', start)
+
+    }, [currentPage]);
 
     useEffect(() => {
         const wordCount: {[key: string]: number } = {};
@@ -122,7 +221,7 @@ const Home = () => {
     const onClickKeyword = (kw: string) => {
         setQuery(kw);
         nav(`/search/${kw}`);
-        onSearch(kw)
+        onSearch(kw, '')
     };
 
     useEffect(() => {
@@ -160,13 +259,33 @@ const Home = () => {
         <ResultsCard key={d.id} result={d} sentiment={0}/>
     ));
 
+    const onCheckboxClick = (list: CheckboxValueType[]) => {
+        setCheckedList(list);
+        setIndeterminate(!!list.length && list.length < ALL_SORT_OPTIONS.length);
+        setCheckAll(list.length === ALL_SORT_OPTIONS.length);
+        onSearch(query, '', 0, list)
+    };
+
+    const onCheckAllChange = (e: CheckboxChangeEvent) => {
+        setCheckedList(e.target.checked ? ALL_SORT_OPTIONS : []);
+        setIndeterminate(false);
+        setCheckAll(e.target.checked);
+
+        onSearch(query, '', 0)
+    };
+
     const sortOptions = useMemo(() => {
         return SORTING_OPTIONS.map((b) => (
-            <Option key={b} value={b}>
-                {b}
+            <Option key={b.value} value={b.value}>
+                {b.label}
             </Option>
         ));
     }, []);
+
+    const handleSort = (e: string) => {
+        setSortBy(e);
+        onSearch(query, e, startIndex)
+    }
 
     return (
         <header style={{ backgroundImage: `url(${backgroundImage})` }}>
@@ -192,7 +311,7 @@ const Home = () => {
                         <BorderedButton
                             left={"1rem"}
                             width={"8%"}
-                            onClick={() => onSearch(query)}
+                            onClick={() => onSearch(query, '')}
                         >
                             Search
                         </BorderedButton>
@@ -232,12 +351,14 @@ const Home = () => {
                         </StyledLink>
                     </StyledText>
                 </div>
-                {results.length === 0 && query !== '' && (
+                {results.length === 0 && kw !== '' && (
                     <div className={"no-results-container"}>
                         <MatchDesc
+                            onClickKeyword={onClickKeyword}
                             numResults={results.length}
                             duration={duration}
-                            query={queryTerm}
+                            query={kw}
+                            suggestion={suggestion}
                         />
                     </div>
                 )
@@ -246,40 +367,51 @@ const Home = () => {
                     <div className={"results-container"}>
                         <div className={'header-section'}>
                             <MatchDesc
+                                onClickKeyword={onClickKeyword}
                                 numResults={numResults}
                                 duration={duration}
-                                query={queryTerm}
-                                numRows={10}
+                                query={kw}
+                                numRows={results.length}
                             />
                             <StyledLabel bottom={"1rem"}>
                                 Refine search:
                                 <Popover content={
                                     <div className="popover">
+
                                         <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}>
                                             Select all
                                         </Checkbox>
 
                                         <Divider orientationMargin={'5px'}/>
 
-                                        <StyledLabel color={'grey'} fontsize={'15px'} marginbottom={'2rem'}>
-                                            Filter by <b>source</b>
-                                        </StyledLabel>
-                                        <CheckboxGroup options={FILTER_SOURCE_OPTIONS} value={checkedList} onChange={onChange} />
+                                        <CheckboxGroup onChange={onCheckboxClick} value={checkedList}>
+                                            <StyledLabel color={'grey'} fontsize={'15px'} marginbottom={'2rem'}>
+                                                Filter by <b>source</b>
+                                            </StyledLabel>
 
-                                        <Divider orientationMargin={'5px'}/>
+                                            {FILTER_SOURCE_OPTIONS.map((source) =>
+                                                <Checkbox key={source} value={source}>{source}</Checkbox>
+                                            )}
 
-                                        <StyledLabel color={'grey'} fontsize={'15px'} marginbottom={'2rem'}>
-                                            Filter by <b>sentiment</b>
-                                        </StyledLabel>
-                                        <CheckboxGroup options={FILTER_SENTIMENT_OPTIONS} value={checkedList} onChange={onChange} />
+                                            <Divider orientationMargin={'5px'}/>
 
-                                        <Divider orientationMargin={'5px'}/>
+                                            <StyledLabel color={'grey'} fontsize={'15px'} marginbottom={'2rem'}>
+                                                Filter by <b>sentiment</b>
+                                            </StyledLabel>
 
-                                        <StyledLabel color={'grey'} fontsize={'15px'} marginbottom={'2rem'}>
-                                            Filter by <b>subjectivity</b>
-                                        </StyledLabel>
-                                        <CheckboxGroup options={FILTER_SUBJECTIVITY_OPTIONS} value={checkedList} onChange={onChange} />
+                                            {FILTER_SENTIMENT_OPTIONS.map((source) =>
+                                                <Checkbox key={source} value={source}>{source}</Checkbox>
+                                            )}
 
+                                            <Divider orientationMargin={'5px'}/>
+                                            <StyledLabel color={'grey'} fontsize={'15px'} marginbottom={'2rem'}>
+                                                Filter by <b>subjectivity</b>
+                                            </StyledLabel>
+
+                                            {FILTER_SUBJECTIVITY_OPTIONS.map((source) =>
+                                                <Checkbox key={source} value={source}>{source}</Checkbox>
+                                            )}
+                                        </CheckboxGroup>
                                     </div>
                                 }
                                          trigger="click"
@@ -298,6 +430,7 @@ const Home = () => {
                                     style={{ width: 150 }}
                                     placeholder="Sort by"
                                     allowClear
+                                    onChange={handleSort}
                                 >
                                     {sortOptions}
                                 </StyledSelect>
@@ -308,11 +441,18 @@ const Home = () => {
                             <div className={"sentiment-section"}>
                                 <SentimentSection />
                                 <WordCloudSection words={wordCount}/>
+                                <div className={'pagination'}>
+                                    <Pagination
+                                        showSizeChanger={false}
+                                        style={{ width:'100%', marginTop: '1rem', marginBottom: '1rem'}}
+                                        size={'small'} current={currentPage} pageSize={10} total={numResults} onChange={handlePageChange} />
+                                </div>
                             </div>
                             <div className={"results-list"}>{resultsArray}</div>
                         </div>
                     </div>
-                )}
+                    )
+                }
             </div>
         </header>
     );
