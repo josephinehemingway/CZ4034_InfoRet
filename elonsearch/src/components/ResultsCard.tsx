@@ -7,7 +7,7 @@ import {
 } from "./StyledText";
 import "./Styles.css";
 import moment from "moment";
-import { DATEFORMAT, SENTIMENT, SENTIMENTS_STYLES_MAP } from "../utils/const";
+import {DATEFORMAT, INPUT_DATE_FORMAT, SENTIMENT, SENTIMENTS_STYLES_MAP} from "../utils/const";
 import { ResponseApi } from "../utils/interfaces";
 import { Tag } from "antd";
 import Reddit from "./../assets/reddit-logo.png";
@@ -68,7 +68,7 @@ const ResultsCard: React.FC<Props> = ({ result, sentiment}) => {
 
             <div className={'footer'}>
                 <StyledLabel fontsize={"14px"} bottom={"0.25rem"} style={{whiteSpace: 'nowrap'}}>
-                    {moment(result.date, "DD/MM/YY HH:mm").format(DATEFORMAT)}
+                    {moment(result.date, INPUT_DATE_FORMAT).format(DATEFORMAT)}
                 </StyledLabel>
 
                 {
@@ -115,7 +115,7 @@ const ResultsCard: React.FC<Props> = ({ result, sentiment}) => {
                                   style={{marginRight: '0.25rem'}}
                             />
                             <StyledLabel right={"0.5rem"} >
-                                {result.score} { result.source[0] === 'reddit_sub' && `(${(result.upvote_ratio * 100).toString()}%)`}
+                                {result.net_upvotes} { result.source[0] === 'reddit_sub' && `(${(result.upvote_ratio * 100).toString()}%)`}
                             </StyledLabel>
                         </div>
 

@@ -24,17 +24,27 @@ import type { CheckboxValueType } from 'antd/es/checkbox/Group';
 const CheckboxGroup = Checkbox.Group;
 const { Option } = StyledSelect;
 
+// TODO: Spell Checking
+// TODO: PAGINATION
+// TODO: Highlighting
+// TODO: sorting - DONE except date
+// TODO: filtering -
+
+
 const Home = () => {
     const queryTerm = useLocation().pathname.split("/")[2];
     const [backgroundImage, setBackgroundImage] = useState(bg);
     const [query, setQuery] = useState<string>(queryTerm ? queryTerm : "");
+    const [kw, setKw] = useState<string>("")
     const [results, setResults] = useState<ResponseApi[]>([]);
     const [wordCount, setWordCount] = useState<WordValueMap[]>([]);
     const [duration, setDuration] = useState<number>(0)
     const [numResults, setNumResults] = useState<number>(0)
+
     const [checkedList, setCheckedList] = useState<CheckboxValueType[]>(FILTER_SOURCE_OPTIONS);
     const [indeterminate, setIndeterminate] = useState(true);
     const [checkAll, setCheckAll] = useState(true);
+
     const [allText, setAllText] = useState<string[]>([])
 
     const onChange = (list: CheckboxValueType[]) => {
@@ -65,13 +75,51 @@ const Home = () => {
         }
     }, [queryTerm]);
 
-    const onSearch = (kw: string) => {
+    const onSearch = (kw: string, sortBy: string='', start=0, fq= [] ) => {
         if (kw !== "") {
             nav(`/search/${kw}`);
+            setKw(kw)
 
-            var start = performance.now();
+            let params: {[key: string]: any} = {
+                sort: sortBy,
+                rows: 10,
+                start: start,
+            }
 
-            fetch(`http://localhost:8983/solr/elonsearch/select?indent=true&q.op=OR&q=text:${kw}&useParams=`
+            if (fq.length > 0) {
+                params = {...params,  fq: fq.join('&fq=')}
+            }
+
+            if (sortBy === 'num_comments desc') {
+                params = {
+                    ...params,
+                    q: `text:${kw}, source: reddit_sub`,
+                    'q.op': 'AND',
+                };
+            } else if (sortBy === 'net_upvotes desc') {
+                params = {
+                    ...params,
+                    q: `text:${kw}, source: (reddit_sub OR reddit_cmt)`,
+                    'q.op': 'AND',
+                };
+            }
+            else {
+                params = {
+                    ...params,
+                    q: `text:${kw}`,
+                    'q.op': 'OR',
+                };
+            }
+
+            const queryString = Object.entries(params)
+                .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+                .join('&');
+
+            // console.log(queryString)
+
+            var startTime = performance.now();
+
+            fetch(`http://localhost:8983/solr/elonsearch/select?indent=true&${queryString}&useParams=`
             ).then((res) =>
                 res.json().then((data) => {
                     setNumResults(data.response.numFound)
@@ -79,14 +127,14 @@ const Home = () => {
 
                     let arr: string[] = []
                     data.response.docs.map((doc: any) => {
-                        arr.push(doc.text[0])
+                        arr.push(doc.cleaned_text[0])
                     })
                     setAllText(arr)
                 })
             );
 
-            var end = performance.now();
-            setDuration(parseFloat((end - start).toFixed(5)));
+            var endTime = performance.now();
+            setDuration(parseFloat((endTime - startTime).toFixed(5)));
 
         } else {
             nav(`/`);
@@ -118,7 +166,7 @@ const Home = () => {
     const onClickKeyword = (kw: string) => {
         setQuery(kw);
         nav(`/search/${kw}`);
-        onSearch(kw)
+        onSearch(kw, '')
     };
 
     useEffect(() => {
@@ -158,11 +206,16 @@ const Home = () => {
 
     const sortOptions = useMemo(() => {
         return SORTING_OPTIONS.map((b) => (
-            <Option key={b} value={b}>
-                {b}
+            <Option key={b.value} value={b.value}>
+                {b.label}
             </Option>
         ));
     }, []);
+
+    const handleSort = (e: string) => {
+        // setSortBy(e);
+        onSearch(query, e)
+    }
 
     return (
         <header style={{ backgroundImage: `url(${backgroundImage})` }}>
@@ -188,7 +241,7 @@ const Home = () => {
                         <BorderedButton
                             left={"1rem"}
                             width={"8%"}
-                            onClick={() => onSearch(query)}
+                            onClick={() => onSearch(query, '')}
                         >
                             Search
                         </BorderedButton>
@@ -233,7 +286,7 @@ const Home = () => {
                         <MatchDesc
                             numResults={results.length}
                             duration={duration}
-                            query={queryTerm}
+                            query={kw}
                         />
                     </div>
                 )
@@ -244,7 +297,7 @@ const Home = () => {
                             <MatchDesc
                                 numResults={numResults}
                                 duration={duration}
-                                query={queryTerm}
+                                query={kw}
                                 numRows={10}
                             />
                             <StyledLabel bottom={"1rem"}>
@@ -294,6 +347,7 @@ const Home = () => {
                                     style={{ width: 150 }}
                                     placeholder="Sort by"
                                     allowClear
+                                    onChange={handleSort}
                                 >
                                     {sortOptions}
                                 </StyledSelect>
