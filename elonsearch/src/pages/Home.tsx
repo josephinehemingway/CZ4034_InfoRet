@@ -20,34 +20,45 @@ import WordCloudSection from "../components/WordCloudSection";
 import {Checkbox, Divider, Popover} from "antd";
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import type { CheckboxValueType } from 'antd/es/checkbox/Group';
+import { Pagination } from 'antd';
 // import logo from "../assets/elon.png";
 
 const CheckboxGroup = Checkbox.Group;
 const { Option } = StyledSelect;
 
-// TODO: Spell Checking
-// TODO: PAGINATION
 // Highlighting
 
-
 const Home = () => {
-    const queryTerm = useLocation().pathname.split("/")[2];
+    // dynamic background
     const [backgroundImage, setBackgroundImage] = useState(bg);
+
+    const queryTerm = useLocation().pathname.split("/")[2];
     const [query, setQuery] = useState<string>(queryTerm ? queryTerm : "");
     const [kw, setKw] = useState<string>("")
     const [results, setResults] = useState<ResponseApi[]>([]);
-    const [wordCount, setWordCount] = useState<WordValueMap[]>([]);
-    const [duration, setDuration] = useState<number>(0)
     const [numResults, setNumResults] = useState<number>(0)
+
+    // pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    const [startIndex, setStartIndex] = useState<number>(0)
+
+    // duration of fetch
+    const [duration, setDuration] = useState<number>(0)
+
+    // sorting
     const [sortBy, setSortBy] = useState<string>('')
     const ALL_SORT_OPTIONS: CheckboxValueType[] = FILTER_SOURCE_OPTIONS.concat(FILTER_SENTIMENT_OPTIONS, FILTER_SUBJECTIVITY_OPTIONS)
 
+    // filter checkboxes
     const [checkedList, setCheckedList] = useState<CheckboxValueType[]>(ALL_SORT_OPTIONS);
     const [indeterminate, setIndeterminate] = useState(true);
     const [checkAll, setCheckAll] = useState(true);
 
+    // spell check
     const [suggestion, setSuggestion] = useState<string>('')
 
+    // for word cloud
+    const [wordCount, setWordCount] = useState<WordValueMap[]>([]);
     const [allText, setAllText] = useState<string[]>([])
 
     let nav = useNavigate();
@@ -65,6 +76,10 @@ const Home = () => {
             setBackgroundImage(bg);
         }
     }, [queryTerm]);
+
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+    };
 
     const onSearch = (kw: string, sortBy: string='', start=0, fq: CheckboxValueType[] = [] ) => {
         setSuggestion('')
@@ -176,6 +191,13 @@ const Home = () => {
     };
 
     useEffect(() => {
+        const start = (currentPage - 1) * 10;
+        setStartIndex(start)
+        onSearch(kw, '', start)
+
+    }, [currentPage]);
+
+    useEffect(() => {
         const wordCount: {[key: string]: number } = {};
 
         allText.forEach((sentence) => {
@@ -262,7 +284,7 @@ const Home = () => {
 
     const handleSort = (e: string) => {
         setSortBy(e);
-        onSearch(query, e, 0)
+        onSearch(query, e, startIndex)
     }
 
     return (
@@ -419,11 +441,18 @@ const Home = () => {
                             <div className={"sentiment-section"}>
                                 <SentimentSection />
                                 <WordCloudSection words={wordCount}/>
+                                <div className={'pagination'}>
+                                    <Pagination
+                                        showSizeChanger={false}
+                                        style={{ width:'100%', marginTop: '1rem', marginBottom: '1rem'}}
+                                        size={'small'} current={currentPage} pageSize={10} total={numResults} onChange={handlePageChange} />
+                                </div>
                             </div>
                             <div className={"results-list"}>{resultsArray}</div>
                         </div>
                     </div>
-                )}
+                    )
+                }
             </div>
         </header>
     );
