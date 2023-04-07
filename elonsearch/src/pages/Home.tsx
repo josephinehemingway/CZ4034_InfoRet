@@ -27,8 +27,7 @@ const { Option } = StyledSelect;
 
 // TODO: Spell Checking
 // TODO: PAGINATION
-// TODO: Highlighting
-// TODO: filtering -
+// Highlighting
 
 
 const Home = () => {
@@ -46,6 +45,8 @@ const Home = () => {
     const [checkedList, setCheckedList] = useState<CheckboxValueType[]>(ALL_SORT_OPTIONS);
     const [indeterminate, setIndeterminate] = useState(true);
     const [checkAll, setCheckAll] = useState(true);
+
+    const [suggestion, setSuggestion] = useState<string>('')
 
     const [allText, setAllText] = useState<string[]>([])
 
@@ -66,6 +67,9 @@ const Home = () => {
     }, [queryTerm]);
 
     const onSearch = (kw: string, sortBy: string='', start=0, fq: CheckboxValueType[] = [] ) => {
+        setSuggestion('')
+        setKw('')
+
         if (kw !== "") {
             nav(`/search/${kw}`);
             setKw(kw)
@@ -137,18 +141,22 @@ const Home = () => {
                 .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
                 .join('&');
 
-            console.log(queryString)
 
             var startTime = performance.now();
 
-            const url = `http://localhost:8983/solr/elonsearch/select?indent=true&${queryString}&useParams=`
-            console.log(url)
+            const url = `http://localhost:8983/solr/elonsearch/select?indent=true&${queryString}&spellcheck=true&useParams=`
 
             fetch(url
             ).then((res) =>
                 res.json().then((data) => {
                     setNumResults(data.response.numFound)
                     setResults(data.response.docs);
+
+                    console.log(data.spellcheck)
+
+                    if (!data.spellcheck.correctlySpelled && data.spellcheck.suggestions.length > 0) {
+                        setSuggestion(data.spellcheck.suggestions[1].suggestion[0].word)
+                    }
 
                     let arr: string[] = []
                     data.response.docs.map((doc: any) => {
@@ -321,12 +329,14 @@ const Home = () => {
                         </StyledLink>
                     </StyledText>
                 </div>
-                {results.length === 0 && query !== '' && (
+                {results.length === 0 && kw !== '' && (
                     <div className={"no-results-container"}>
                         <MatchDesc
+                            onClickKeyword={onClickKeyword}
                             numResults={results.length}
                             duration={duration}
                             query={kw}
+                            suggestion={suggestion}
                         />
                     </div>
                 )
@@ -335,6 +345,7 @@ const Home = () => {
                     <div className={"results-container"}>
                         <div className={'header-section'}>
                             <MatchDesc
+                                onClickKeyword={onClickKeyword}
                                 numResults={numResults}
                                 duration={duration}
                                 query={kw}
