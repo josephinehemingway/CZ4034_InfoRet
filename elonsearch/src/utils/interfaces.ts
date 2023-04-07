@@ -1,44 +1,22 @@
-interface ResponseRedditSubmissions {
-    id: string;
-    title: string;
-    text: string;
-    subreddit: string;
+interface ResponseApi {
     author: string;
-    score: number;
-    upvote_ratio: number;
     date: string;
-    url: string;
-    link: string;
-    tags: string[];
-    num_comments: number;
-    source: string;
-}
-
-interface ResponseRedditComments {
     id: string;
-    title: string;
-    text: string;
-    subreddit: string;
-    author: string;
-    score: number;
-    upvote_ratio: number;
-    date: string;
-    url: string;
-    link: string;
-    tags: string[];
-    num_comments: number;
-    source: string;
-}
-
-interface ResponseTwitter {
-    tweet_id: string;
-    username: string;
-    text: string;
-    retweet_count: number;
     like_count: number;
-    datetime: string;
-    url: string;
+    link: string;
+    num_comments: number | string;
+    post_text: string;
+    retweet_count: number;
+    score: number;
+    sentiment: number;
     source: string;
+    subjectivity: number;
+    subreddit: string;
+    tags: string;
+    text: string;
+    title: string;
+    upvote_ratio: number;
+    url: string;
 }
 
 interface KeywordBackgroundMap {
@@ -49,4 +27,9 @@ interface Sentiment {
     [key: string]: string;
 }
 
-export type { ResponseRedditSubmissions, KeywordBackgroundMap, Sentiment }
+interface WordValueMap {
+    text: string;
+    value: number;
+}
+
+export type { ResponseApi, KeywordBackgroundMap, Sentiment, WordValueMap }

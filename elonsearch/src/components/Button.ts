@@ -11,7 +11,7 @@ export const BorderedButton = styled(Button)`
     cursor: pointer;
     font-size: 16px;
     text-align: center;
-    font-family: Poppins, sans-serif;
+    font-family: Inter-Regular, sans-serif;
     font-weight: 100;
     width: ${(props: { width: string }) => (props.width ? props.width : '30%')};
     height: 50px;

@@ -25,7 +25,7 @@ header {
 
 .home-header.sticky .heading{
     position: fixed;
-    transform: translateY(-150%);
+    transform: translateY(-155%);
 }
 
 .heading {
@@ -51,7 +51,7 @@ header {
 
 .results-container {
     position: fixed;
-    top: 28vh;
+    top: 26vh;
     width: 65%;
     display: flex;
     flex-direction: column;
@@ -64,7 +64,7 @@ header {
 
 .results-container.show {
     position: fixed;
-    top: 28vh;
+    top: 26vh;
     width: 65%;
     display: flex;
     flex-direction: column;
@@ -72,6 +72,16 @@ header {
     justify-content: flex-start;
     opacity: 1;
     transform: translateY(0);
+}
+
+.no-results-container {
+    position: fixed;
+    top: 60vh;
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .results-section {
@@ -90,8 +100,42 @@ header {
 
 .results-list {
     width: 70%;
-    height: 66vh;
+    height: 68vh;
     left: 20vw;
     overflow: scroll;
     position: absolute;
+    padding-bottom: 2rem;
 }
+
+.header-section {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.popover {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    align-items: start;
+    width: 250px;
+    font-family: Inter-Regular, sans-serif;
+    overflow: auto;
+}
+
+.ant-divider-horizontal {
+    margin: 10px 0;
+}
+
+.ant-checkbox-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.ant-checkbox-wrapper+.ant-checkbox-wrapper {
+    margin-inline-start: 0;
+    font-family: Inter-Regular, sans-serif;
+}
+
