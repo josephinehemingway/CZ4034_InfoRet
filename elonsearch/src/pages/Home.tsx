@@ -27,7 +27,6 @@ const { Option } = StyledSelect;
 // TODO: Spell Checking
 // TODO: PAGINATION
 // TODO: Highlighting
-// TODO: sorting - DONE except date
 // TODO: filtering -
 
 

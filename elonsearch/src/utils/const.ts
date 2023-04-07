@@ -5,7 +5,7 @@ import starlink from "../assets/bg/starlink.webp";
 import {KeywordBackgroundMap, Sentiment} from "./interfaces";
 
 export const DATEFORMAT = "ddd, D MMMM YYYY [at] h:mmA"
-export const INPUT_DATE_FORMAT = "DD/MM/YY HH:mm"
+export const INPUT_DATE_FORMAT = "YYYY-MM-DDTHH:mm:ssZ"
 
 export const keywordBackgroundMap: KeywordBackgroundMap = {
     'tesla': tesla,
@@ -50,10 +50,6 @@ export const FILTER_SUBJECTIVITY_OPTIONS = [
 ]
 
 export const SORTING_OPTIONS = [
-    {
-        label: 'Most Relevant',
-        value: 'score desc'
-    },
     {
         label: 'Newest',
         value: 'date desc'
