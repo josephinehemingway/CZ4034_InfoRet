@@ -1,5 +1,6 @@
 interface ResponseApi {
     author: string;
+    cleaned_text: string;
     date: string;
     id: string;
     like_count: number;
@@ -7,7 +8,7 @@ interface ResponseApi {
     num_comments: number | string;
     post_text: string;
     retweet_count: number;
-    score: number;
+    net_upvotes: number;
     sentiment: number;
     source: string;
     subjectivity: number;

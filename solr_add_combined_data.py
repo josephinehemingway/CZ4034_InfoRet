@@ -2,7 +2,14 @@ import pandas as pd
 import pysolr  # can only support up to python 3.7
 
 # Read from csv file
-csv_data = pd.read_csv("combined.csv")  
+csv_data = pd.read_csv("combined.csv")
+
+def convert_to_utc(datetime_str):
+    datetime_obj = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M:%S")
+
+    return datetime_obj.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+csv_data["date"] = csv_data["date"].apply(convert_to_utc)
 
 # Restructure raw data for indexing
 data = [{"id": i,  # id for solr (starts from 0)
@@ -15,7 +22,7 @@ data = [{"id": i,  # id for solr (starts from 0)
          "subreddit": row["subreddit"],
          "author": row["author"],
          "upvote_ratio": row["upvote_ratio"],
-         "score": row["score"],
+         "net_upvotes": row["score"],
          "retweet_count": row["retweet_count"],
          "like_count": row["like_count"],
          "url": row["url"],
