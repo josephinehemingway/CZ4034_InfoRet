@@ -74,17 +74,13 @@ const Home = () => {
             fetch(`http://localhost:8983/solr/elonsearch/select?indent=true&q.op=OR&q=text:${kw}&useParams=`
             ).then((res) =>
                 res.json().then((data) => {
-                    console.log(data.response.numFound)
                     setNumResults(data.response.numFound)
-
-                    console.log(data.response.docs)
                     setResults(data.response.docs);
 
                     let arr: string[] = []
                     data.response.docs.map((doc: any) => {
                         arr.push(doc.text[0])
                     })
-                    console.log(arr)
                     setAllText(arr)
                 })
             );

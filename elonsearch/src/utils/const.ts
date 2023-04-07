@@ -2,7 +2,7 @@ import tesla from "../assets/bg/tesla.jpeg";
 import twitter from "../assets/bg/twitter.png";
 import spacex from "../assets/bg/spacex.jpeg";
 import starlink from "../assets/bg/starlink.webp";
-import {KeywordBackgroundMap, Sentiment, WordValueMap} from "./interfaces";
+import {KeywordBackgroundMap, Sentiment} from "./interfaces";
 
 export const DATEFORMAT = "ddd, D MMMM YYYY [at] h:mmA"
 
@@ -56,22 +56,3 @@ export const SORTING_OPTIONS = [
     'Most Retweets',
     'Most Comments',
 ]
-
-// export const WORD_VALUE_MAP: WordValueMap[] = [
-//     {
-//         text: 'told',
-//         value: 64,
-//     },
-//     {
-//         text: 'mistake',
-//         value: 11,
-//     },
-//     {
-//         text: 'thought',
-//         value: 16,
-//     },
-//     {
-//         text: 'bad',
-//         value: 17,
-//     },
-// ]
