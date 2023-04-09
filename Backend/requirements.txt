@@ -1,0 +1,4 @@
+pysolr==3.9.0
+pandas==1.4.3
+numpy==1.21.3
+
