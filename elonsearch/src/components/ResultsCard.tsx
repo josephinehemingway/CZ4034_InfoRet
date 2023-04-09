@@ -7,7 +7,14 @@ import {
 } from "./StyledText";
 import "./Styles.css";
 import moment from "moment";
-import {DATEFORMAT, INPUT_DATE_FORMAT, SENTIMENT, SENTIMENTS_STYLES_MAP} from "../utils/const";
+import {
+    DATEFORMAT,
+    INPUT_DATE_FORMAT,
+    SENTIMENT,
+    SENTIMENTS_STYLES_MAP,
+    SUBJECTIVITY,
+    SUBJECTIVITY_STYLES_MAP
+} from "../utils/const";
 import { ResponseApi } from "../utils/interfaces";
 import { Tag } from "antd";
 import Reddit from "./../assets/reddit-logo.png";
@@ -22,13 +29,33 @@ import {
 
 type Props = {
     result: ResponseApi;
-    sentiment: number;
 };
 
-const ResultsCard: React.FC<Props> = ({ result, sentiment}) => {
+const capitalise = (text: string | undefined) => {
+    if (text === undefined) {
+        return 'Text undefined'
+    }
+
+    if (text.split(" ").length > 1) {
+        const arr = text.split(" ");
+        for (var i = 0; i < arr.length; i++) {
+            arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+
+        }
+        return arr.join(" ");
+    }
+
+    return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+const ResultsCard: React.FC<Props> = ({ result}) => {
     let regex = new RegExp(/[^\s]+(.*?).(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF)$/);
-    let sentimentString = SENTIMENT[sentiment.toString()];
+    let sentimentString = SENTIMENT[result.sentiment];
     let sentimentCol = SENTIMENTS_STYLES_MAP[sentimentString];
+
+    let subjString = SUBJECTIVITY[result.subjectivity];
+    let subjCol = SUBJECTIVITY_STYLES_MAP[subjString];
+
 
     return (
         <div className={"results-card"}>
@@ -60,9 +87,15 @@ const ResultsCard: React.FC<Props> = ({ result, sentiment}) => {
                 </div>
 
                 <div className={"sentiment"}>
-                    <StyledLabel align={'end'} color={sentimentCol}>
+                    {
+                        subjString !== 'NEUTRAL' &&
+                        <Tag color={subjCol} style={{ marginLeft: "0.25rem", marginRight: '0', fontSize: '14px'}}>
+                            {subjString}
+                        </Tag>
+                    }
+                    <Tag color={sentimentCol} style={{ marginLeft: "0.25rem", marginRight: '0', fontSize: '14px'}}>
                         {sentimentString}
-                    </StyledLabel>
+                    </Tag>
                 </div>
             </div>
 
@@ -71,21 +104,7 @@ const ResultsCard: React.FC<Props> = ({ result, sentiment}) => {
                     {moment(result.date, INPUT_DATE_FORMAT).format(DATEFORMAT)}
                 </StyledLabel>
 
-                {
-                    result.source[0] === 'reddit_sub' && result.tags &&
-                    <div className={"tags"}>
-                        {eval(result.tags).map((tag: string) => {
-                            return (
-                            eval(tag).length !== 0 &&
-                            (
-                                <Tag color={"blue"} style={{ marginLeft: "0.25rem", marginRight: '0', fontSize: '14px'}}>
-                                    {eval(tag)}
-                                </Tag>
-                            )
-                            )}
-                        )}
-                    </div>
-                }
+
             </div>
 
             {result.source[0] === "reddit_sub" &&
@@ -127,6 +146,34 @@ const ResultsCard: React.FC<Props> = ({ result, sentiment}) => {
                                 </StyledLabel>
                             </div>
                         )}
+                        {
+                            result.source[0] === 'reddit_sub' && result.tags &&
+                            <div className={"tags"}>
+
+                                {eval(result.tags).map((tag: string) => {
+                                    return (
+                                        eval(tag).length !== 0 &&
+                                        (
+                                            <StyledLabel right={"0.5rem"}>
+                                                Tags:
+                                                <Tag color={"blue"} style={{ marginLeft: "0.25rem", marginRight: '0.5rem', fontSize: '14px'}}>
+                                                    {eval(tag)}
+                                                </Tag>
+                                            </StyledLabel>
+
+                                        )
+                                    )}
+                                )}
+                            </div>
+                        }
+                        <div className={"tags"}>
+                            <StyledLabel right={"0.5rem"}>
+                                Aspect:
+                                <Tag color={"purple"} style={{ marginLeft: "0.25rem", marginRight: '0', fontSize: '14px'}}>
+                                    {capitalise(result.aspect[0])}
+                                </Tag>
+                            </StyledLabel>
+                        </div>
                     </div>
                 ) :
                     <div className={"metadata"}>
@@ -141,6 +188,14 @@ const ResultsCard: React.FC<Props> = ({ result, sentiment}) => {
                             <Icon path={mdiHeartOutline} size={0.85} style={{marginRight: '0.25rem'}}/>
                             <StyledLabel right={"0.5rem"}>
                                 {result.like_count}
+                            </StyledLabel>
+                        </div>
+                        <div className={"tags"}>
+                            <StyledLabel right={"0.5rem"}>
+                                Aspect:
+                                <Tag color={"purple"} style={{ marginLeft: "0.25rem", marginRight: '0', fontSize: '14px'}}>
+                                    {capitalise(result.aspect[0])}
+                                </Tag>
                             </StyledLabel>
                         </div>
                     </div>

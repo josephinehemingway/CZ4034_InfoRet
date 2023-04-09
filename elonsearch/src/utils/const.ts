@@ -22,9 +22,19 @@ export const SENTIMENT: Sentiment = {
 }
 
 export const SENTIMENTS_STYLES_MAP: Sentiment = {
-    'POSITIVE': 'rgba(122,250,58,0.8)',
-    'NEUTRAL': 'rgb(168,173,183)',
-    'NEGATIVE': 'rgb(199,70,70)',
+    'POSITIVE': 'green',
+    'NEUTRAL': 'blue',
+    'NEGATIVE': 'red',
+}
+
+export const SUBJECTIVITY: Sentiment = {
+    '1': 'OPINIONATED',
+    '0': 'NEUTRAL',
+}
+
+export const SUBJECTIVITY_STYLES_MAP: Sentiment = {
+    'OPINIONATED': 'geekblue',
+    'NEUTRAL': 'blue',
 }
 
 export const FILTER_MAPPING: {[key: string]: CheckboxValueType} = {

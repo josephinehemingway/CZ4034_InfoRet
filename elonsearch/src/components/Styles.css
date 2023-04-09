@@ -93,7 +93,11 @@
 }
 
 .sentiment {
-    width: 100px;
+    width: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .footer {
@@ -103,6 +107,7 @@
     align-items: center;
     width: 100%;
     margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
 }
 
 .metadata {

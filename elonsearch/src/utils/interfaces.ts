@@ -1,5 +1,6 @@
 interface ResponseApi {
     author: string;
+    aspect: string;
     cleaned_text: string;
     date: string;
     id: string;
