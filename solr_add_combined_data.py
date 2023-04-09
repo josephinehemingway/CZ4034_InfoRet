@@ -3,10 +3,10 @@ import pysolr  # can only support up to python 3.7
 from datetime import datetime
 
 # Read from csv file
-csv_data = pd.read_csv("combined.csv")
+csv_data = pd.read_csv("newcombi.csv")
 
 def convert_to_utc(datetime_str):
-    datetime_obj = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M:%S")
+    datetime_obj = datetime.strptime(datetime_str, "%d/%m/%y %H:%M")
 
     return datetime_obj.strftime("%Y-%m-%dT%H:%M:%SZ")
 
@@ -32,7 +32,8 @@ data = [{"id": i,  # id for solr (starts from 0)
          "tags": row["tags"],
          "source": row["source"],
          "subjectivity": row["subjectivity"],
-         "sentiment": row["sentiment"]
+         "sentiment": row["sentiment"],
+         'aspect': row["aspect"],
          } for i, row in csv_data.iterrows()]  
 
 # Index and add data to solr core "elonsearch"
