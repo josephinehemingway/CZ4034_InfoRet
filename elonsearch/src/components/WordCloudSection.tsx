@@ -10,7 +10,7 @@ type Props = {
 const WordCloudSection: React.FC<Props> = ({words}) => {
     return (
         <div className={'wordcloud-section'}>
-            <StyledHeading align={'start'}>
+            <StyledHeading align={'start'} bottom={'0.5rem'} >
                 Word Cloud
             </StyledHeading>
             <WordCloud words={words}/>

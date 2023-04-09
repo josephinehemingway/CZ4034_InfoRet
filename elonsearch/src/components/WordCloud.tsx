@@ -29,7 +29,7 @@ const WordCloud: React.FC<Props> = ({words}) => {
         // Spiral: 'archimedean'
     };
 
-    const size = [279.55, 300];
+    const size = [279.55, 270];
 
     return (
         <ReactWordcloud

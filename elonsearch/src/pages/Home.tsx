@@ -439,7 +439,7 @@ const Home = () => {
 
                         <div className={"results-section"}>
                             <div className={"sentiment-section"}>
-                                <SentimentSection />
+                                <SentimentSection results={results}/>
                                 <WordCloudSection words={wordCount}/>
                                 <div className={'pagination'}>
                                     <Pagination
