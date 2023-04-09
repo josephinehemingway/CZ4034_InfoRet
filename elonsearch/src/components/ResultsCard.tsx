@@ -151,7 +151,7 @@ const ResultsCard: React.FC<Props> = ({ result, sentiment}) => {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    View more
+                    View original
                 </StyledLink>
             </div>
         </div>
