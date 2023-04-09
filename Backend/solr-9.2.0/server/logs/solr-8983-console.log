@@ -1,9 +1,9 @@
 OpenJDK 64-Bit Server VM warning: -XX:+UseLargePages not supported in this VM
-2023-04-09 11:25:23.003 INFO  (main) [] o.e.j.s.Server jetty-10.0.13; built: 2022-12-07T20:13:20.134Z; git: 1c2636ea05c0ca8de1ffd6ca7f3a98ac084c766d; jvm 11.0.12+7
-2023-04-09 11:25:23.492 WARN  (main) [] o.e.j.u.DeprecationWarning Using @Deprecated Class org.eclipse.jetty.servlet.listener.ELContextCleaner
-2023-04-09 11:25:23.532 INFO  (main) [] o.a.s.s.CoreContainerProvider Using logger factory org.apache.logging.slf4j.Log4jLoggerFactory
-2023-04-09 11:25:23.541 INFO  (main) [] o.a.s.s.CoreContainerProvider  ___      _       Welcome to Apache Solr™ version 9.2.0
-2023-04-09 11:25:23.541 INFO  (main) [] o.a.s.s.CoreContainerProvider / __| ___| |_ _   Starting in standalone mode on port 8983
-2023-04-09 11:25:23.541 INFO  (main) [] o.a.s.s.CoreContainerProvider \__ \/ _ \ | '_|  Install dir: /Users/josephinehemingway/Desktop/solr-9.2.0
-2023-04-09 11:25:23.541 INFO  (main) [] o.a.s.s.CoreContainerProvider |___/\___/_|_|    Start time: 2023-04-09T11:25:23.541472Z
-2023-04-09 11:25:23.544 INFO  (main) [] o.a.s.s.CoreContainerProvider Solr started with "-XX:+CrashOnOutOfMemoryError" that will crash on any OutOfMemoryError exception. The cause of the OOME will be logged in the crash file at the following path: /Users/josephinehemingway/Desktop/solr-9.2.0/server/logs/jvm_crash_2548.log
+2023-04-09 15:25:42.016 INFO  (main) [] o.e.j.s.Server jetty-10.0.13; built: 2022-12-07T20:13:20.134Z; git: 1c2636ea05c0ca8de1ffd6ca7f3a98ac084c766d; jvm 11.0.12+7
+2023-04-09 15:25:42.899 WARN  (main) [] o.e.j.u.DeprecationWarning Using @Deprecated Class org.eclipse.jetty.servlet.listener.ELContextCleaner
+2023-04-09 15:25:42.934 INFO  (main) [] o.a.s.s.CoreContainerProvider Using logger factory org.apache.logging.slf4j.Log4jLoggerFactory
+2023-04-09 15:25:42.941 INFO  (main) [] o.a.s.s.CoreContainerProvider  ___      _       Welcome to Apache Solr™ version 9.2.0
+2023-04-09 15:25:42.941 INFO  (main) [] o.a.s.s.CoreContainerProvider / __| ___| |_ _   Starting in standalone mode on port 8983
+2023-04-09 15:25:42.942 INFO  (main) [] o.a.s.s.CoreContainerProvider \__ \/ _ \ | '_|  Install dir: /Users/josephinehemingway/Desktop/NTU/Y4S2/CZ4034 Information Retrieval/Project/CZ4034_InfoRet/Backend/solr-9.2.0
+2023-04-09 15:25:42.942 INFO  (main) [] o.a.s.s.CoreContainerProvider |___/\___/_|_|    Start time: 2023-04-09T15:25:42.942107Z
+2023-04-09 15:25:42.944 INFO  (main) [] o.a.s.s.CoreContainerProvider Solr started with "-XX:+CrashOnOutOfMemoryError" that will crash on any OutOfMemoryError exception. The cause of the OOME will be logged in the crash file at the following path: /Users/josephinehemingway/Desktop/NTU/Y4S2/CZ4034 Information Retrieval/Project/CZ4034_InfoRet/Backend/solr-9.2.0/server/logs/jvm_crash_14147.log
