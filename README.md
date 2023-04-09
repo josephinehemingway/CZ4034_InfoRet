@@ -10,6 +10,13 @@ Team members who contributed to the success of the project:
 - Lim ZhengWei Trevor
 - Sim Shi Qian 
 
+This repository contains the source codes of the information retrieval system developed by 
+CZ4034-Information Retrieval Group 25 for the course project. The detailed explanation on how to compile and run the source codes are found in the README files in the subfolders of each of the sub-questions for the project.
+
+The 3 README files for each of the sub-questions are found in sub-folders:
+
+- Backend
+- Frontend
 
 
 
