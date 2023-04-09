@@ -1,0 +1,29 @@
+2023-03-29 08:32:50.186 INFO  (main) [] o.e.j.s.Server jetty-10.0.13; built: 2022-12-07T20:13:20.134Z; git: 1c2636ea05c0ca8de1ffd6ca7f3a98ac084c766d; jvm 11.0.12+7
+2023-03-29 08:32:50.656 WARN  (main) [] o.e.j.u.DeprecationWarning Using @Deprecated Class org.eclipse.jetty.servlet.listener.ELContextCleaner
+2023-03-29 08:32:50.698 INFO  (main) [] o.a.s.s.CoreContainerProvider Using logger factory org.apache.logging.slf4j.Log4jLoggerFactory
+2023-03-29 08:32:50.708 INFO  (main) [] o.a.s.s.CoreContainerProvider  ___      _       Welcome to Apache Solr™ version 9.2.0
+2023-03-29 08:32:50.708 INFO  (main) [] o.a.s.s.CoreContainerProvider / __| ___| |_ _   Starting in standalone mode on port 8983
+2023-03-29 08:32:50.708 INFO  (main) [] o.a.s.s.CoreContainerProvider \__ \/ _ \ | '_|  Install dir: /Users/josephinehemingway/Desktop/solr-9.2.0
+2023-03-29 08:32:50.708 INFO  (main) [] o.a.s.s.CoreContainerProvider |___/\___/_|_|    Start time: 2023-03-29T08:32:50.708714Z
+2023-03-29 08:32:50.712 INFO  (main) [] o.a.s.s.CoreContainerProvider Solr started with "-XX:+CrashOnOutOfMemoryError" that will crash on any OutOfMemoryError exception. The cause of the OOME will be logged in the crash file at the following path: /Users/josephinehemingway/Desktop/solr-9.2.0/server/logs/jvm_crash_97623.log
+2023-03-29 08:32:50.730 INFO  (main) [] o.a.s.s.CoreContainerProvider Solr Home: /Users/josephinehemingway/Desktop/solr-9.2.0/server/solr (source: system property: solr.solr.home)
+2023-03-29 08:32:50.732 INFO  (main) [] o.a.s.c.SolrXmlConfig Loading solr.xml from /Users/josephinehemingway/Desktop/solr-9.2.0/server/solr/solr.xml
+2023-03-29 08:32:50.840 INFO  (main) [] o.a.s.c.SolrResourceLoader Added 1 libs to classloader, from paths: [/Users/josephinehemingway/Desktop/solr-9.2.0/lib]
+2023-03-29 08:32:52.583 WARN  (main) [] o.a.s.u.StartupLoggingUtils Jetty request logging enabled. Will retain logs for last 3 days. See chapter "Configuring Logging" in reference guide for how to configure.
+2023-03-29 08:32:52.586 WARN  (main) [] o.a.s.c.CoreContainer Not all security plugins configured!  authentication=disabled authorization=disabled.  Solr is only as secure as you make it. Consider configuring authentication/authorization before exposing Solr to users internal or external.  See https://s.apache.org/solrsecurity for more info
+2023-03-29 08:32:52.850 INFO  (main) [] o.a.s.c.CorePropertiesLocator Found 0 core definitions underneath /Users/josephinehemingway/Desktop/solr-9.2.0/server/solr
+2023-03-29 08:32:53.409 INFO  (main) [] o.a.s.j.SolrRequestAuthorizer Creating a new SolrRequestAuthorizer
+2023-03-29 08:32:53.549 INFO  (main) [] o.e.j.s.h.ContextHandler Started o.e.j.w.WebAppContext@49096b06{solr-jetty-context.xml,/solr,file:///Users/josephinehemingway/Desktop/solr-9.2.0/server/solr-webapp/webapp/,AVAILABLE}{/Users/josephinehemingway/Desktop/solr-9.2.0/server/solr-webapp/webapp}
+2023-03-29 08:32:53.566 INFO  (main) [] o.e.j.s.RequestLogWriter Opened /Users/josephinehemingway/Desktop/solr-9.2.0/server/logs/2023_03_29.request.log
+2023-03-29 08:32:53.570 INFO  (main) [] o.e.j.s.AbstractConnector Started ServerConnector@2a551a63{HTTP/1.1, (http/1.1, h2c)}{127.0.0.1:8983}
+2023-03-29 08:32:53.573 INFO  (main) [] o.e.j.s.Server Started Server@4102b1b1{STARTING}[10.0.13,sto=0] @56027ms
+2023-03-29 08:38:22.404 INFO  (qtp276869158-50) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/cores params={indexInfo=false&wt=json&_=1680079102268} status=0 QTime=44
+2023-03-29 08:38:22.416 INFO  (qtp276869158-51) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/system params={wt=json&_=1680079102268} status=0 QTime=58
+2023-03-29 08:38:22.428 INFO  (qtp276869158-47) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/system params={wt=json&_=1680079102268} status=0 QTime=3
+2023-04-03 12:53:22.484 INFO  (JettyShutdownThread) [] o.e.j.s.Server Stopped Server@4102b1b1{STOPPING}[10.0.13,sto=0]
+2023-04-03 12:53:22.519 INFO  (JettyShutdownThread) [] o.e.j.s.AbstractConnector Stopped ServerConnector@2a551a63{HTTP/1.1, (http/1.1, h2c)}{127.0.0.1:8983}
+2023-04-03 12:53:22.621 INFO  (JettyShutdownThread) [] o.a.s.c.CoreContainer Shutting down CoreContainer instance=32749970
+2023-04-03 12:53:22.631 INFO  (JettyShutdownThread) [] o.a.s.m.SolrMetricManager Closing metric reporters for registry=solr.node tag=null
+2023-04-03 12:53:22.649 INFO  (JettyShutdownThread) [] o.a.s.m.SolrMetricManager Closing metric reporters for registry=solr.jvm tag=null
+2023-04-03 12:53:22.658 INFO  (JettyShutdownThread) [] o.a.s.m.SolrMetricManager Closing metric reporters for registry=solr.jetty tag=null
+2023-04-03 12:53:22.695 INFO  (JettyShutdownThread) [] o.e.j.s.h.ContextHandler Stopped o.e.j.w.WebAppContext@49096b06{solr-jetty-context.xml,/solr,file:///Users/josephinehemingway/Desktop/solr-9.2.0/server/solr-webapp/webapp/,STOPPED}{/Users/josephinehemingway/Desktop/solr-9.2.0/server/solr-webapp/webapp}

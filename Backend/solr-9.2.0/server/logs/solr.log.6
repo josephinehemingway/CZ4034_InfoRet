@@ -1,0 +1,155 @@
+2023-04-07 16:11:49.854 INFO  (main) [] o.e.j.s.Server jetty-10.0.13; built: 2022-12-07T20:13:20.134Z; git: 1c2636ea05c0ca8de1ffd6ca7f3a98ac084c766d; jvm 11.0.12+7
+2023-04-07 16:11:50.221 WARN  (main) [] o.e.j.u.DeprecationWarning Using @Deprecated Class org.eclipse.jetty.servlet.listener.ELContextCleaner
+2023-04-07 16:11:50.269 INFO  (main) [] o.a.s.s.CoreContainerProvider Using logger factory org.apache.logging.slf4j.Log4jLoggerFactory
+2023-04-07 16:11:50.277 INFO  (main) [] o.a.s.s.CoreContainerProvider  ___      _       Welcome to Apache Solr™ version 9.2.0
+2023-04-07 16:11:50.278 INFO  (main) [] o.a.s.s.CoreContainerProvider / __| ___| |_ _   Starting in standalone mode on port 8983
+2023-04-07 16:11:50.278 INFO  (main) [] o.a.s.s.CoreContainerProvider \__ \/ _ \ | '_|  Install dir: /Users/josephinehemingway/Desktop/solr-9.2.0
+2023-04-07 16:11:50.278 INFO  (main) [] o.a.s.s.CoreContainerProvider |___/\___/_|_|    Start time: 2023-04-07T16:11:50.278269Z
+2023-04-07 16:11:50.281 INFO  (main) [] o.a.s.s.CoreContainerProvider Solr started with "-XX:+CrashOnOutOfMemoryError" that will crash on any OutOfMemoryError exception. The cause of the OOME will be logged in the crash file at the following path: /Users/josephinehemingway/Desktop/solr-9.2.0/server/logs/jvm_crash_62852.log
+2023-04-07 16:11:50.295 INFO  (main) [] o.a.s.s.CoreContainerProvider Solr Home: /Users/josephinehemingway/Desktop/solr-9.2.0/server/solr (source: system property: solr.solr.home)
+2023-04-07 16:11:50.297 INFO  (main) [] o.a.s.c.SolrXmlConfig Loading solr.xml from /Users/josephinehemingway/Desktop/solr-9.2.0/server/solr/solr.xml
+2023-04-07 16:11:50.396 INFO  (main) [] o.a.s.c.SolrResourceLoader Added 1 libs to classloader, from paths: [/Users/josephinehemingway/Desktop/solr-9.2.0/lib]
+2023-04-07 16:11:52.118 WARN  (main) [] o.a.s.u.StartupLoggingUtils Jetty request logging enabled. Will retain logs for last 3 days. See chapter "Configuring Logging" in reference guide for how to configure.
+2023-04-07 16:11:52.119 WARN  (main) [] o.a.s.c.CoreContainer Not all security plugins configured!  authentication=disabled authorization=disabled.  Solr is only as secure as you make it. Consider configuring authentication/authorization before exposing Solr to users internal or external.  See https://s.apache.org/solrsecurity for more info
+2023-04-07 16:11:52.417 INFO  (main) [] o.a.s.c.CorePropertiesLocator Found 3 core definitions underneath /Users/josephinehemingway/Desktop/solr-9.2.0/server/solr
+2023-04-07 16:11:52.419 INFO  (main) [] o.a.s.c.CorePropertiesLocator Cores are: [elonsearch_cmts, elonsearch, tech_products]
+2023-04-07 16:11:52.492 INFO  (coreLoadExecutor-10-thread-2) [ x:elonsearch] o.a.s.c.SolrConfig Using Lucene MatchVersion: 9.4.0
+2023-04-07 16:11:52.492 INFO  (coreLoadExecutor-10-thread-1) [ x:elonsearch_cmts] o.a.s.c.SolrConfig Using Lucene MatchVersion: 9.4.0
+2023-04-07 16:11:52.509 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.c.SolrResourceLoader Added 88 libs to classloader, from paths: [/Users/josephinehemingway/Desktop/solr-9.2.0/modules/clustering/lib, /Users/josephinehemingway/Desktop/solr-9.2.0/modules/extraction/lib, /Users/josephinehemingway/Desktop/solr-9.2.0/modules/langid/lib, /Users/josephinehemingway/Desktop/solr-9.2.0/modules/ltr/lib, /Users/josephinehemingway/Desktop/solr-9.2.0/modules/scripting/lib]
+2023-04-07 16:11:52.626 INFO  (coreLoadExecutor-10-thread-1) [ x:elonsearch_cmts] o.a.s.s.IndexSchema Schema name=default-config
+2023-04-07 16:11:52.626 INFO  (coreLoadExecutor-10-thread-2) [ x:elonsearch] o.a.s.s.IndexSchema Schema name=default-config
+2023-04-07 16:11:52.670 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.c.SolrConfig Using Lucene MatchVersion: 9.4.0
+2023-04-07 16:11:52.670 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.u.SolrIndexConfig IndexWriter infoStream solr logging is enabled
+2023-04-07 16:11:52.679 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.s.IndexSchema Schema name=example
+2023-04-07 16:11:52.929 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.r.RestManager Registered ManagedResource impl org.apache.solr.rest.schema.analysis.ManagedWordSetResource for path /schema/analysis/stopwords/english
+2023-04-07 16:11:52.930 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.r.RestManager Registered ManagedResource impl org.apache.solr.rest.schema.analysis.ManagedSynonymGraphFilterFactory$SynonymManager for path /schema/analysis/synonyms/english
+2023-04-07 16:11:52.930 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.r.RestManager Added observer of type org.apache.solr.rest.schema.analysis.ManagedStopFilterFactory to existing ManagedResource /schema/analysis/stopwords/english
+2023-04-07 16:11:52.930 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.r.RestManager Added observer of type org.apache.solr.rest.schema.analysis.ManagedSynonymGraphFilterFactory to existing ManagedResource /schema/analysis/synonyms/english
+2023-04-07 16:11:52.937 INFO  (coreLoadExecutor-10-thread-1) [ x:elonsearch_cmts] o.a.s.s.IndexSchema Loaded schema default-config/1.6 with uniqueid field id
+2023-04-07 16:11:52.937 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.s.IndexSchema Loaded schema example/1.6 with uniqueid field id
+2023-04-07 16:11:52.937 INFO  (coreLoadExecutor-10-thread-2) [ x:elonsearch] o.a.s.s.IndexSchema Loaded schema default-config/1.6 with uniqueid field id
+2023-04-07 16:11:52.937 INFO  (coreLoadExecutor-10-thread-1) [ x:elonsearch_cmts] o.a.s.c.CoreContainer Creating SolrCore 'elonsearch_cmts' using configuration from instancedir /Users/josephinehemingway/Desktop/solr-9.2.0/server/solr/elonsearch_cmts, trusted=true
+2023-04-07 16:11:52.937 INFO  (coreLoadExecutor-10-thread-2) [ x:elonsearch] o.a.s.c.CoreContainer Creating SolrCore 'elonsearch' using configuration from instancedir /Users/josephinehemingway/Desktop/solr-9.2.0/server/solr/elonsearch, trusted=true
+2023-04-07 16:11:52.974 INFO  (main) [] o.a.s.j.SolrRequestAuthorizer Creating a new SolrRequestAuthorizer
+2023-04-07 16:11:52.983 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.c.CoreContainer Creating SolrCore 'tech_products' using configuration from instancedir /Users/josephinehemingway/Desktop/solr-9.2.0/server/solr/configsets/sample_techproducts_configs, trusted=true
+2023-04-07 16:11:52.995 INFO  (coreLoadExecutor-10-thread-2) [ x:elonsearch] o.a.s.c.SolrCore Opening new SolrCore at [/Users/josephinehemingway/Desktop/solr-9.2.0/server/solr/elonsearch], dataDir=[/Users/josephinehemingway/Desktop/solr-9.2.0/server/solr/elonsearch/data/]
+2023-04-07 16:11:52.995 INFO  (coreLoadExecutor-10-thread-1) [ x:elonsearch_cmts] o.a.s.c.SolrCore Opening new SolrCore at [/Users/josephinehemingway/Desktop/solr-9.2.0/server/solr/elonsearch_cmts], dataDir=[/Users/josephinehemingway/Desktop/solr-9.2.0/server/solr/elonsearch_cmts/data/]
+2023-04-07 16:11:52.995 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.c.SolrCore Opening new SolrCore at [/Users/josephinehemingway/Desktop/solr-9.2.0/server/solr/configsets/sample_techproducts_configs], dataDir=[/Users/josephinehemingway/Desktop/solr-9.2.0/server/solr/configsets/sample_techproducts_configs/data/]
+2023-04-07 16:11:53.097 INFO  (main) [] o.e.j.s.h.ContextHandler Started o.e.j.w.WebAppContext@7a94b64e{solr-jetty-context.xml,/solr,file:///Users/josephinehemingway/Desktop/solr-9.2.0/server/solr-webapp/webapp/,AVAILABLE}{/Users/josephinehemingway/Desktop/solr-9.2.0/server/solr-webapp/webapp}
+2023-04-07 16:11:53.109 INFO  (main) [] o.e.j.s.RequestLogWriter Opened /Users/josephinehemingway/Desktop/solr-9.2.0/server/logs/2023_04_07.request.log
+2023-04-07 16:11:53.114 INFO  (main) [] o.e.j.s.AbstractConnector Started ServerConnector@36ac8a63{HTTP/1.1, (http/1.1, h2c)}{127.0.0.1:8983}
+2023-04-07 16:11:53.116 INFO  (main) [] o.e.j.s.Server Started Server@315df4bb{STARTING}[10.0.13,sto=0] @44970ms
+2023-04-07 16:11:53.658 INFO  (qtp1865201235-52) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/cores params={indexInfo=false&wt=json&_=1680883913509} status=0 QTime=11
+2023-04-07 16:11:53.664 INFO  (qtp1865201235-29) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/system params={wt=json&_=1680883913509} status=0 QTime=16
+2023-04-07 16:11:53.770 INFO  (coreLoadExecutor-10-thread-1) [ x:elonsearch_cmts] o.a.s.j.SolrRequestAuthorizer Creating a new SolrRequestAuthorizer
+2023-04-07 16:11:53.770 INFO  (coreLoadExecutor-10-thread-2) [ x:elonsearch] o.a.s.j.SolrRequestAuthorizer Creating a new SolrRequestAuthorizer
+2023-04-07 16:11:53.770 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.j.SolrRequestAuthorizer Creating a new SolrRequestAuthorizer
+2023-04-07 16:11:53.791 INFO  (coreLoadExecutor-10-thread-1) [ x:elonsearch_cmts] o.a.s.u.UpdateHandler Using UpdateLog implementation: org.apache.solr.update.UpdateLog
+2023-04-07 16:11:53.791 INFO  (coreLoadExecutor-10-thread-2) [ x:elonsearch] o.a.s.u.UpdateHandler Using UpdateLog implementation: org.apache.solr.update.UpdateLog
+2023-04-07 16:11:53.791 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.u.UpdateHandler Using UpdateLog implementation: org.apache.solr.update.UpdateLog
+2023-04-07 16:11:53.791 INFO  (coreLoadExecutor-10-thread-1) [ x:elonsearch_cmts] o.a.s.u.UpdateLog Initializing UpdateLog: dataDir= defaultSyncLevel=FLUSH numRecordsToKeep=100 maxNumLogsToKeep=10 numVersionBuckets=65536
+2023-04-07 16:11:53.791 INFO  (coreLoadExecutor-10-thread-2) [ x:elonsearch] o.a.s.u.UpdateLog Initializing UpdateLog: dataDir= defaultSyncLevel=FLUSH numRecordsToKeep=100 maxNumLogsToKeep=10 numVersionBuckets=65536
+2023-04-07 16:11:53.791 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.u.UpdateLog Initializing UpdateLog: dataDir= defaultSyncLevel=FLUSH numRecordsToKeep=100 maxNumLogsToKeep=10 numVersionBuckets=65536
+2023-04-07 16:11:53.818 INFO  (coreLoadExecutor-10-thread-1) [ x:elonsearch_cmts] o.a.s.u.CommitTracker Hard AutoCommit: if uncommitted for 15000ms; 
+2023-04-07 16:11:53.818 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.u.CommitTracker Hard AutoCommit: if uncommitted for 15000ms; 
+2023-04-07 16:11:53.818 INFO  (coreLoadExecutor-10-thread-2) [ x:elonsearch] o.a.s.u.CommitTracker Hard AutoCommit: if uncommitted for 15000ms; 
+2023-04-07 16:11:53.820 INFO  (coreLoadExecutor-10-thread-2) [ x:elonsearch] o.a.s.u.CommitTracker Soft AutoCommit: disabled
+2023-04-07 16:11:53.820 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.u.CommitTracker Soft AutoCommit: disabled
+2023-04-07 16:11:53.820 INFO  (coreLoadExecutor-10-thread-1) [ x:elonsearch_cmts] o.a.s.u.CommitTracker Soft AutoCommit: disabled
+2023-04-07 16:11:54.056 INFO  (coreLoadExecutor-10-thread-2) [ x:elonsearch] o.a.s.r.ManagedResourceStorage File-based storage initialized to use dir: /Users/josephinehemingway/Desktop/solr-9.2.0/server/solr/elonsearch/conf
+2023-04-07 16:11:54.056 INFO  (coreLoadExecutor-10-thread-1) [ x:elonsearch_cmts] o.a.s.r.ManagedResourceStorage File-based storage initialized to use dir: /Users/josephinehemingway/Desktop/solr-9.2.0/server/solr/elonsearch_cmts/conf
+2023-04-07 16:11:54.056 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.r.ManagedResourceStorage File-based storage initialized to use dir: /Users/josephinehemingway/Desktop/solr-9.2.0/server/solr/configsets/sample_techproducts_configs/conf
+2023-04-07 16:11:54.059 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.r.ManagedResourceStorage Loaded LinkedHashMap at path _rest_managed.json using file:dir=/Users/josephinehemingway/Desktop/solr-9.2.0/server/solr/configsets/sample_techproducts_configs/conf
+2023-04-07 16:11:54.059 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.r.ManagedResource Loaded initArgs {} for /rest/managed
+2023-04-07 16:11:54.060 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.r.ManagedResourceStorage Loaded LinkedHashMap at path _schema_analysis_stopwords_english.json using file:dir=/Users/josephinehemingway/Desktop/solr-9.2.0/server/solr/configsets/sample_techproducts_configs/conf
+2023-04-07 16:11:54.061 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.r.ManagedResource Loaded initArgs {ignoreCase=true} for /schema/analysis/stopwords/english
+2023-04-07 16:11:54.061 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.r.s.a.ManagedWordSetResource Loaded 35 words for /schema/analysis/stopwords/english
+2023-04-07 16:11:54.061 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.r.ManagedResource Notified 2 observers of /schema/analysis/stopwords/english
+2023-04-07 16:11:54.061 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.r.ManagedResourceStorage Loaded LinkedHashMap at path _schema_analysis_synonyms_english.json using file:dir=/Users/josephinehemingway/Desktop/solr-9.2.0/server/solr/configsets/sample_techproducts_configs/conf
+2023-04-07 16:11:54.061 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.r.ManagedResource Loaded initArgs {ignoreCase=true, format=solr} for /schema/analysis/synonyms/english
+2023-04-07 16:11:54.062 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.r.s.a.ManagedSynonymGraphFilterFactory Loaded 3 synonym mappings for /schema/analysis/synonyms/english
+2023-04-07 16:11:54.063 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.r.ManagedResource Notified 2 observers of /schema/analysis/synonyms/english
+2023-04-07 16:11:54.079 INFO  (coreLoadExecutor-10-thread-1) [ x:elonsearch_cmts] o.a.s.s.DirectSolrSpellChecker init: {maxEdits=2, minPrefix=1, maxInspections=5, minQueryLength=4, accuracy=0.5, maxQueryFrequency=0.01, name=default, field=_text_, classname=solr.DirectSolrSpellChecker, distanceMeasure=internal}
+2023-04-07 16:11:54.079 INFO  (coreLoadExecutor-10-thread-2) [ x:elonsearch] o.a.s.s.DirectSolrSpellChecker init: {maxEdits=2, minPrefix=1, maxInspections=5, minQueryLength=4, accuracy=0.5, maxQueryFrequency=0.01, name=default, field=_text_, classname=solr.DirectSolrSpellChecker, distanceMeasure=internal}
+2023-04-07 16:11:54.079 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.s.DirectSolrSpellChecker init: {maxEdits=2, minPrefix=1, maxInspections=5, minQueryLength=4, accuracy=0.5, maxQueryFrequency=0.01, name=default, field=text, classname=solr.DirectSolrSpellChecker, distanceMeasure=internal}
+2023-04-07 16:11:54.086 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.h.c.SuggestComponent Initializing SuggestComponent
+2023-04-07 16:11:54.090 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.s.s.SolrSuggester init: {name=mySuggester, lookupImpl=FuzzyLookupFactory, dictionaryImpl=DocumentDictionaryFactory, field=cat, weightField=price, suggestAnalyzerFieldType=string, buildOnStartup=false}
+2023-04-07 16:11:54.090 INFO  (coreLoadExecutor-10-thread-2) [ x:elonsearch] o.a.s.h.ReplicationHandler Commits will be reserved for 10000 ms
+2023-04-07 16:11:54.090 INFO  (coreLoadExecutor-10-thread-1) [ x:elonsearch_cmts] o.a.s.h.ReplicationHandler Commits will be reserved for 10000 ms
+2023-04-07 16:11:54.107 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.s.s.SolrSuggester Dictionary loaded with params: {name=mySuggester, lookupImpl=FuzzyLookupFactory, dictionaryImpl=DocumentDictionaryFactory, field=cat, weightField=price, suggestAnalyzerFieldType=string, buildOnStartup=false}
+2023-04-07 16:11:54.109 INFO  (searcherExecutor-13-thread-1-processing-elonsearch_cmts) [ x:elonsearch_cmts] o.a.s.c.QuerySenderListener QuerySenderListener done.
+2023-04-07 16:11:54.109 INFO  (searcherExecutor-13-thread-1-processing-elonsearch_cmts) [ x:elonsearch_cmts] o.a.s.h.c.SpellCheckComponent Loading spell index for spellchecker: default
+2023-04-07 16:11:54.109 INFO  (searcherExecutor-14-thread-1-processing-elonsearch) [ x:elonsearch] o.a.s.c.QuerySenderListener QuerySenderListener done.
+2023-04-07 16:11:54.109 INFO  (searcherExecutor-14-thread-1-processing-elonsearch) [ x:elonsearch] o.a.s.h.c.SpellCheckComponent Loading spell index for spellchecker: default
+2023-04-07 16:11:54.116 INFO  (coreLoadExecutor-10-thread-3) [ x:tech_products] o.a.s.h.ReplicationHandler Commits will be reserved for 10000 ms
+2023-04-07 16:11:54.116 INFO  (searcherExecutor-14-thread-1-processing-elonsearch) [ x:elonsearch] o.a.s.c.SolrCore Registered new searcher autowarm time: 0 ms
+2023-04-07 16:11:54.116 INFO  (searcherExecutor-13-thread-1-processing-elonsearch_cmts) [ x:elonsearch_cmts] o.a.s.c.SolrCore Registered new searcher autowarm time: 0 ms
+2023-04-07 16:11:54.183 INFO  (searcherExecutor-16-thread-1-processing-tech_products) [ x:tech_products] o.a.s.c.S.Request webapp=null path=null params={q=static+firstSearcher+warming+in+solrconfig.xml&distrib=false&event=firstSearcher} hits=3 status=0 QTime=61
+2023-04-07 16:11:54.196 INFO  (searcherExecutor-16-thread-1-processing-tech_products) [ x:tech_products] o.a.s.c.QuerySenderListener QuerySenderListener done.
+2023-04-07 16:11:54.196 INFO  (searcherExecutor-16-thread-1-processing-tech_products) [ x:tech_products] o.a.s.h.c.SpellCheckComponent Loading spell index for spellchecker: default
+2023-04-07 16:11:54.196 INFO  (searcherExecutor-16-thread-1-processing-tech_products) [ x:tech_products] o.a.s.h.c.SpellCheckComponent Loading spell index for spellchecker: wordbreak
+2023-04-07 16:11:54.199 INFO  (searcherExecutor-16-thread-1-processing-tech_products) [ x:tech_products] o.a.s.c.SolrCore Registered new searcher autowarm time: 0 ms
+2023-04-07 16:11:59.452 INFO  (qtp1865201235-33) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/cores params={indexInfo=false&wt=json&_=1680883913509} status=0 QTime=0
+2023-04-07 16:11:59.455 INFO  (qtp1865201235-55) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/system params={wt=json&_=1680883913509} status=0 QTime=4
+2023-04-07 16:11:59.461 INFO  (qtp1865201235-57) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/cores params={wt=json&_=1680883913509} status=0 QTime=9
+2023-04-07 16:11:59.494 INFO  (qtp1865201235-26) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/cores params={indexInfo=false&wt=json&_=1680883913509} status=0 QTime=0
+2023-04-07 16:11:59.500 INFO  (qtp1865201235-56) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/system params={wt=json&_=1680883913509} status=0 QTime=5
+2023-04-07 16:11:59.502 INFO  (qtp1865201235-52) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/cores params={wt=json&_=1680883913509} status=0 QTime=6
+2023-04-07 16:12:02.484 INFO  (qtp1865201235-33) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/cores params={indexInfo=false&wt=json&_=1680883913509} status=0 QTime=0
+2023-04-07 16:12:02.489 INFO  (qtp1865201235-55) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/system params={wt=json&_=1680883913509} status=0 QTime=5
+2023-04-07 16:12:02.491 INFO  (qtp1865201235-57) [ x:elonsearch] o.a.s.c.S.Request webapp=/solr path=/admin/luke params={numTerms=0&show=index&wt=json&_=1680883922478} status=0 QTime=6
+2023-04-07 16:12:02.492 INFO  (qtp1865201235-25) [ x:elonsearch] o.a.s.c.S.Request webapp=/solr path=/admin/ping params={action=status&wt=json&_=1680883913509&ts=1680883913509} status=503 QTime=3
+2023-04-07 16:12:02.494 INFO  (qtp1865201235-30) [ x:elonsearch] o.a.s.c.S.Request webapp=/solr path=/admin/system params={wt=json&_=1680883922478} status=0 QTime=4
+2023-04-07 16:12:02.494 INFO  (qtp1865201235-53) [ x:elonsearch] o.a.s.c.S.Request webapp=/solr path=/replication params={wt=json&command=details&_=1680883922478} status=0 QTime=9
+2023-04-07 16:12:04.745 INFO  (qtp1865201235-33) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/cores params={indexInfo=false&wt=json&_=1680883913509} status=0 QTime=0
+2023-04-07 16:12:04.748 INFO  (qtp1865201235-27) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/system params={wt=json&_=1680883913509} status=0 QTime=3
+2023-04-07 16:12:04.750 INFO  (qtp1865201235-29) [ x:elonsearch] o.a.s.c.S.Request webapp=/solr path=/config/params params={wt=json&_=1680883913616} status=0 QTime=4
+2023-04-07 16:12:41.917 INFO  (qtp1865201235-55) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/cores params={indexInfo=false&wt=json&_=1680883913509} status=0 QTime=0
+2023-04-07 16:12:41.917 INFO  (qtp1865201235-53) [ x:elonsearch] o.a.s.c.S.Request webapp=/solr path=/config/params params={wt=json&_=1680883913616} status=0 QTime=0
+2023-04-07 16:12:41.921 INFO  (qtp1865201235-26) [ x:elonsearch] o.a.s.c.S.Request webapp=/solr path=/select params={q=*:*&indent=true&spellcheck=true&q.op=OR&spellcheck.build=true&useParams=&_=1680883913616} hits=12676 status=0 QTime=3
+2023-04-07 16:12:41.921 INFO  (qtp1865201235-57) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/system params={wt=json&_=1680883913509} status=0 QTime=4
+2023-04-07 16:13:24.677 INFO  (qtp1865201235-62) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/cores params={indexInfo=false&wt=json&_=1680883913509} status=0 QTime=0
+2023-04-07 16:13:24.677 INFO  (qtp1865201235-29) [ x:elonsearch] o.a.s.c.S.Request webapp=/solr path=/config/params params={wt=json&_=1680883913616} status=0 QTime=0
+2023-04-07 16:13:24.686 INFO  (qtp1865201235-27) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/system params={wt=json&_=1680883913509} status=0 QTime=9
+2023-04-07 16:13:24.692 INFO  (qtp1865201235-33) [ x:elonsearch] o.a.s.c.S.Request webapp=/solr path=/select params={q=text:Twitt&indent=true&spellcheck=true&q.op=OR&spellcheck.build=true&useParams=&_=1680883913616} hits=1 status=0 QTime=14
+2023-04-07 16:13:35.606 INFO  (qtp1865201235-53) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/cores params={indexInfo=false&wt=json&_=1680883913509} status=0 QTime=0
+2023-04-07 16:13:35.607 INFO  (qtp1865201235-26) [ x:elonsearch] o.a.s.c.S.Request webapp=/solr path=/config/params params={wt=json&_=1680883913616} status=0 QTime=0
+2023-04-07 16:13:35.611 INFO  (qtp1865201235-57) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/system params={wt=json&_=1680883913509} status=0 QTime=4
+2023-04-07 16:13:35.617 INFO  (qtp1865201235-55) [ x:elonsearch] o.a.s.c.S.Request webapp=/solr path=/select params={q=text:Twittre&indent=true&spellcheck=true&q.op=OR&spellcheck.build=true&useParams=&_=1680883913616} hits=0 status=0 QTime=5
+2023-04-07 16:13:44.677 INFO  (qtp1865201235-62) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/cores params={indexInfo=false&wt=json&_=1680883913509} status=0 QTime=0
+2023-04-07 16:13:44.678 INFO  (qtp1865201235-33) [ x:elonsearch] o.a.s.c.S.Request webapp=/solr path=/config/params params={wt=json&_=1680883913616} status=0 QTime=0
+2023-04-07 16:13:44.680 INFO  (qtp1865201235-27) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/system params={wt=json&_=1680883913509} status=0 QTime=3
+2023-04-07 16:13:44.684 INFO  (qtp1865201235-26) [ x:elonsearch] o.a.s.c.S.Request webapp=/solr path=/select params={q=text:Twittre&indent=true&spellcheck=true&q.op=OR&spellcheck.build=false&useParams=&_=1680883913616} hits=0 status=0 QTime=6
+2023-04-07 16:13:54.481 INFO  (qtp1865201235-29) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/cores params={indexInfo=false&wt=json&_=1680883913509} status=0 QTime=0
+2023-04-07 16:13:54.482 INFO  (qtp1865201235-53) [ x:elonsearch] o.a.s.c.S.Request webapp=/solr path=/config/params params={wt=json&_=1680883913616} status=0 QTime=0
+2023-04-07 16:13:54.484 INFO  (qtp1865201235-55) [ x:elonsearch] o.a.s.c.S.Request webapp=/solr path=/select params={q=text:Twittre&indent=true&spellcheck=true&q.op=OR&spellcheck.build=true&useParams=&_=1680883913616} hits=0 status=0 QTime=1
+2023-04-07 16:13:54.485 INFO  (qtp1865201235-57) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/system params={wt=json&_=1680883913509} status=0 QTime=3
+2023-04-07 16:15:02.651 INFO  (qtp1865201235-27) [ x:elonsearch] o.a.s.c.S.Request webapp=/solr path=/select params={q=*:*&spellcheck=true&spellcheck.build=true} hits=12676 status=0 QTime=0
+2023-04-07 16:15:02.740 INFO  (qtp1865201235-56) [ x:elonsearch] o.a.s.c.S.Request webapp=/solr path=/select params={q=*:*&spellcheck=true&spellcheck.build=true} hits=12676 status=0 QTime=0
+2023-04-07 16:15:15.277 INFO  (qtp1865201235-52) [ x:elonsearch] o.a.s.c.S.Request webapp=/solr path=/select params={q=text:+twitte&spellcheck=true} hits=0 status=0 QTime=1
+2023-04-07 16:15:15.322 INFO  (qtp1865201235-56) [ x:elonsearch] o.a.s.c.S.Request webapp=/solr path=/select params={q=text:+twitte&spellcheck=true} hits=0 status=0 QTime=0
+2023-04-07 16:19:26.122 INFO  (qtp1865201235-28) [ x:elonsearch] o.a.s.c.S.Request webapp=/solr path=/select params={q=*:*&spellcheck=true&spellcheck.build=true} hits=12676 status=0 QTime=0
+2023-04-07 16:19:26.840 INFO  (qtp1865201235-27) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/cores params={indexInfo=false&wt=json&_=1680884366770} status=0 QTime=0
+2023-04-07 16:19:26.840 INFO  (qtp1865201235-33) [ x:elonsearch] o.a.s.c.S.Request webapp=/solr path=/config/params params={wt=json&_=1680884366818} status=0 QTime=0
+2023-04-07 16:19:26.841 INFO  (qtp1865201235-55) [ x:elonsearch] o.a.s.c.S.Request webapp=/solr path=/select params={q=text:Twittre&indent=true&spellcheck=true&q.op=OR&spellcheck.build=true&useParams=&_=1680884366818} hits=0 status=0 QTime=0
+2023-04-07 16:19:26.842 INFO  (qtp1865201235-24) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/system params={wt=json&_=1680884366771} status=0 QTime=2
+2023-04-07 16:19:34.249 INFO  (qtp1865201235-53) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/cores params={indexInfo=false&wt=json&_=1680884366770} status=0 QTime=0
+2023-04-07 16:19:34.249 INFO  (qtp1865201235-63) [ x:elonsearch] o.a.s.c.S.Request webapp=/solr path=/config/params params={wt=json&_=1680884366818} status=0 QTime=0
+2023-04-07 16:19:34.253 INFO  (qtp1865201235-29) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/system params={wt=json&_=1680884366771} status=0 QTime=4
+2023-04-07 16:19:34.254 INFO  (qtp1865201235-52) [ x:elonsearch] o.a.s.c.S.Request webapp=/solr path=/select params={q=text:Twittre&spellcheck.q=twittr&indent=true&spellcheck=true&q.op=OR&spellcheck.build=true&useParams=&_=1680884366818} hits=0 status=0 QTime=2
+2023-04-07 16:19:47.809 INFO  (ShutdownMonitor) [] o.e.j.s.Server Stopped Server@315df4bb{STOPPING}[10.0.13,sto=0]
+2023-04-07 16:19:47.812 INFO  (ShutdownMonitor) [] o.e.j.s.AbstractConnector Stopped ServerConnector@36ac8a63{HTTP/1.1, (http/1.1, h2c)}{127.0.0.1:8983}
+2023-04-07 16:19:47.825 INFO  (ShutdownMonitor) [] o.a.s.c.CoreContainer Shutting down CoreContainer instance=1190724320
+2023-04-07 16:19:47.827 INFO  (coreCloseExecutor-30-thread-3) [ x:tech_products] o.a.s.c.SolrCore CLOSING SolrCore org.apache.solr.core.SolrCore@1c722fe0 tech_products
+2023-04-07 16:19:47.827 INFO  (coreCloseExecutor-30-thread-1) [ x:elonsearch_cmts] o.a.s.c.SolrCore CLOSING SolrCore org.apache.solr.core.SolrCore@1cddd5b5 elonsearch_cmts
+2023-04-07 16:19:47.827 INFO  (coreCloseExecutor-30-thread-2) [ x:elonsearch] o.a.s.c.SolrCore CLOSING SolrCore org.apache.solr.core.SolrCore@4a84df7f elonsearch
+2023-04-07 16:19:47.827 INFO  (coreCloseExecutor-30-thread-3) [ x:tech_products] o.a.s.m.SolrMetricManager Closing metric reporters for registry=solr.core.tech_products tag=SolrCore@1c722fe0
+2023-04-07 16:19:47.852 INFO  (coreCloseExecutor-30-thread-2) [ x:elonsearch] o.a.s.m.SolrMetricManager Closing metric reporters for registry=solr.core.elonsearch tag=SolrCore@4a84df7f
+2023-04-07 16:19:47.855 INFO  (coreCloseExecutor-30-thread-3) [ x:tech_products] o.a.s.u.DirectUpdateHandler2 Committing on IndexWriter.close()  ... SKIPPED (unnecessary).
+2023-04-07 16:19:47.871 INFO  (coreCloseExecutor-30-thread-1) [ x:elonsearch_cmts] o.a.s.m.SolrMetricManager Closing metric reporters for registry=solr.core.elonsearch_cmts tag=SolrCore@1cddd5b5
+2023-04-07 16:19:47.874 INFO  (coreCloseExecutor-30-thread-2) [ x:elonsearch] o.a.s.u.DirectUpdateHandler2 Committing on IndexWriter.close()  ... SKIPPED (unnecessary).
+2023-04-07 16:19:47.888 INFO  (coreCloseExecutor-30-thread-1) [ x:elonsearch_cmts] o.a.s.u.DirectUpdateHandler2 Committing on IndexWriter.close()  ... SKIPPED (unnecessary).
+2023-04-07 16:19:47.893 INFO  (ShutdownMonitor) [] o.a.s.m.SolrMetricManager Closing metric reporters for registry=solr.node tag=null
+2023-04-07 16:19:47.899 INFO  (ShutdownMonitor) [] o.a.s.m.SolrMetricManager Closing metric reporters for registry=solr.jvm tag=null
+2023-04-07 16:19:47.904 INFO  (ShutdownMonitor) [] o.a.s.m.SolrMetricManager Closing metric reporters for registry=solr.jetty tag=null
+2023-04-07 16:19:47.913 INFO  (ShutdownMonitor) [] o.e.j.s.h.ContextHandler Stopped o.e.j.w.WebAppContext@7a94b64e{solr-jetty-context.xml,/solr,file:///Users/josephinehemingway/Desktop/solr-9.2.0/server/solr-webapp/webapp/,STOPPED}{/Users/josephinehemingway/Desktop/solr-9.2.0/server/solr-webapp/webapp}
