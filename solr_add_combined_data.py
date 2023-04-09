@@ -6,7 +6,7 @@ from datetime import datetime
 csv_data = pd.read_csv("combined_final.csv")
 
 def convert_to_utc(datetime_str):
-    datetime_obj = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M:%S")
+    datetime_obj = datetime.strptime(datetime_str, "%d/%m/%y %H:%M")
 
     return datetime_obj.strftime("%Y-%m-%dT%H:%M:%SZ")
 
