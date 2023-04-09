@@ -17,7 +17,9 @@ The README files for each of the sub-questions are found in sub-folders:
 
 - Backend
 - Frontend
-- 
+- Sentiment
+- Query Results
+
 ## YouTube Video Presentation & Demo:
 A presentation video was created to explain the applications and demonstrate the application.
 
