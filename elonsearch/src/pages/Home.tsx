@@ -256,7 +256,7 @@ const Home = () => {
     }, [results]);
 
     const resultsArray = results.map((d) => (
-        <ResultsCard key={d.id} result={d} sentiment={0}/>
+        <ResultsCard key={d.id} result={d}/>
     ));
 
     const onCheckboxClick = (list: CheckboxValueType[]) => {
