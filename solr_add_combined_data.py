@@ -3,7 +3,7 @@ import pysolr  # can only support up to python 3.7
 from datetime import datetime
 
 # Read from csv file
-csv_data = pd.read_csv("newcombi.csv")
+csv_data = pd.read_csv("combined_final.csv")
 
 def convert_to_utc(datetime_str):
     datetime_obj = datetime.strptime(datetime_str, "%d/%m/%y %H:%M")

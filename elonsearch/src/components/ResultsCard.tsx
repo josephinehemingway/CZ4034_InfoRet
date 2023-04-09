@@ -103,6 +103,8 @@ const ResultsCard: React.FC<Props> = ({ result}) => {
                 <StyledLabel fontsize={"14px"} bottom={"0.25rem"} style={{whiteSpace: 'nowrap'}}>
                     {moment(result.date, INPUT_DATE_FORMAT).format(DATEFORMAT)}
                 </StyledLabel>
+
+
             </div>
 
             {result.source[0] === "reddit_sub" &&
@@ -147,13 +149,14 @@ const ResultsCard: React.FC<Props> = ({ result}) => {
                         {
                             result.source[0] === 'reddit_sub' && result.tags &&
                             <div className={"tags"}>
+
                                 {eval(result.tags).map((tag: string) => {
                                     return (
                                         eval(tag).length !== 0 &&
                                         (
                                             <StyledLabel right={"0.5rem"}>
                                                 Tags:
-                                                <Tag color={"blue"} style={{ marginLeft: "0.25rem", marginRight: '1rem', fontSize: '14px'}}>
+                                                <Tag color={"blue"} style={{ marginLeft: "0.25rem", marginRight: '0.5rem', fontSize: '14px'}}>
                                                     {eval(tag)}
                                                 </Tag>
                                             </StyledLabel>
@@ -203,7 +206,7 @@ const ResultsCard: React.FC<Props> = ({ result}) => {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    View original
+                    View more
                 </StyledLink>
             </div>
         </div>
